@@ -2,6 +2,7 @@
 
 namespace Akeneo\UserManagement\Bundle\Doctrine\ORM\Repository;
 
+use Akeneo\UserManagement\Component\Model\Role;
 use Akeneo\UserManagement\Component\Model\RoleInterface;
 use Akeneo\UserManagement\Component\Model\User;
 use Akeneo\UserManagement\Component\Model\UserInterface;
@@ -61,5 +62,13 @@ class RoleRepository extends EntityRepository implements RoleRepositoryInterface
             ->join('u.roles', 'role')
             ->where('role = :role')
             ->setParameter('role', $role);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneByLabel(string $label): ?Role
+    {
+        return $this->findOneBy(['label' => $label]);
     }
 }

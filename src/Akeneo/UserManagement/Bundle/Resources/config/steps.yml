@@ -70,3 +70,31 @@ services:
             - '@pim_connector.writer.database.user_group'
             - 100
             - '@akeneo_batch.job.job_stopper'
+
+    pim_connector.step.csv_user_role_import.import:
+        class: 'Akeneo\UserManagement\Component\Connector\Job\ImportRoleTasklet'
+        arguments:
+            - 'import'
+            - '@event_dispatcher'
+            - '@akeneo_batch.job_repository'
+            - '@pim_connector.reader.file.import.csv_user_role'
+            - '@pim_connector.writer.database.user_role'
+            - '@akeneo_batch.job.job_stopper'
+            - '@pim_user.repository.role'
+            - '@validator'
+            - '@akeneo_storage_utils.doctrine.object_detacher'
+            - '@oro_security.acl.manager'
+
+    pim_connector.step.xlsx_user_role_import.import:
+        class: 'Akeneo\UserManagement\Component\Connector\Job\ImportRoleTasklet'
+        arguments:
+            - 'import'
+            - '@event_dispatcher'
+            - '@akeneo_batch.job_repository'
+            - '@pim_connector.reader.file.import.xlsx_user_role'
+            - '@pim_connector.writer.database.user_role'
+            - '@akeneo_batch.job.job_stopper'
+            - '@pim_user.repository.role'
+            - '@validator'
+            - '@akeneo_storage_utils.doctrine.object_detacher'
+            - '@oro_security.acl.manager'

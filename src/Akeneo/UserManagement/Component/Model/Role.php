@@ -67,7 +67,8 @@ class Role extends SymfonyRole implements RoleInterface
      */
     public function setRole($role): void
     {
-        $this->role = (string) strtoupper($role);
+        $role = preg_replace('/[^a-zA-Z0-9_]/', '', (string) $role);
+        $this->role = strtoupper($role);
 
         // every role should be prefixed with 'ROLE_'
         if (strpos($this->role, 'ROLE_') !== 0 && User::ROLE_ANONYMOUS !== $role) {
