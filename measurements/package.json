@@ -24,9 +24,9 @@
     "@types/styled-components": "^5.1.2",
     "akeneo-design-system": "file:../akeneo-design-system"
   },
-  "proxy": "http://pcd.test:8080",
+  "proxy": "http://localhost:4000",
   "scripts": {
-    "pre-script": "cp ../public/js/translation/en_US.js ./src/translations.json && cp ../public/js/routes.js ./src/routes.json && sed -i '' 's/fos.Router.setData(//g' ./src/routes.json && sed -i '' 's/);//g' ./src/routes.json",
+    "pre-script": "cp ../public/js/translation/en_US.js ./src/translations.json && cp ../public/js/routes.js ./src/routes.json && sed -i 's/fos.Router.setData(//g' ./src/routes.json && sed -i 's/);//g' ./src/routes.json",
     "start": "yarn pre-script && react-scripts start",
     "build": "yarn pre-script && react-scripts build",
     "test": "yarn pre-script && react-scripts test",

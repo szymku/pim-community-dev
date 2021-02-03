@@ -1,0 +1,6 @@
+{
+  "/configuration/measures/rest": "/measurements",
+  "/rest/measurement-families/:id": "/measurements",
+  "/rest/measurement-families": "/measurements",
+  "/system/locale/ui": "/locales"
+}
