@@ -68,6 +68,7 @@ final class Role implements ArrayConverterInterface
     public function convert(array $item, array $options = []): array
     {
         $this->fieldsRequirementChecker->checkFieldsPresence($item, static::FIELDS_PRESENCE);
+        $this->fieldsRequirementChecker->checkFieldsFilling($item, static::FIELDS_PRESENCE);
 
         $convertedItem = [];
         foreach ($item as $property => $data) {

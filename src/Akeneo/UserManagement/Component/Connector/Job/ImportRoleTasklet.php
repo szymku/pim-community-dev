@@ -46,6 +46,7 @@ use Webmozart\Assert\Assert;
  */
 final class ImportRoleTasklet extends AbstractStep implements TrackableStepInterface, LoggerAwareInterface, StoppableStepInterface
 {
+    private const ACL_EXTENSION_KEY = 'action';
     private const MAX_ATTEMPTS_TO_CREATE_A_ROLE = 100;
 
     use LoggerAwareTrait;
@@ -314,6 +315,10 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
         $sid = $this->aclManager->getSid($role);
 
         foreach ($this->aclManager->getAllExtensions() as $extension) {
+            if (static::ACL_EXTENSION_KEY !== $extension->getExtensionKey()) {
+                continue;
+            }
+
             $rootOid = $this->aclManager->getRootOid($extension->getExtensionKey());
             foreach ($extension->getAllMaskBuilders() as $maskBuilder) {
                 $fullAccessMask = $maskBuilder->hasConst('GROUP_SYSTEM')
