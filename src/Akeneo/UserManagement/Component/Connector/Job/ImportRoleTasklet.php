@@ -138,11 +138,12 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
         }
     }
 
-    private function fetchOrCreate(array $readItem): Role
+    private function fetchOrCreate(array $readItem): ?Role
     {
         Assert::stringNotEmpty($readItem['label'] ?? null);
         $roleLabel = $readItem['label'];
         $role = $this->roleRepository->findOneByLabel($roleLabel);
+        $errorMessage = '';
         if (null === $role) {
             $role = new Role();
             $role->setLabel($roleLabel);
@@ -151,7 +152,9 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
             while ($attempts < static::MAX_ATTEMPTS_TO_CREATE_A_ROLE) {
                 $role->setRole(0 === $attempts ? $roleLabel : ($roleLabel . $attempts));
                 $identifier = $role->getRole();
-                if (null === $this->roleRepository->findOneByIdentifier($identifier)) {
+                if (null === $this->roleRepository->findOneByIdentifier($identifier)
+                    && User::ROLE_ANONYMOUS !== $role->getRole()
+                ) {
                     break;
                 }
 
@@ -159,17 +162,25 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
             }
 
             if ($attempts === static::MAX_ATTEMPTS_TO_CREATE_A_ROLE) {
-                $itemPosition = $this->stepExecution->getSummaryInfo('item_position');
-                $this->handleStepExecutionWarning(
-                    $this->stepExecution,
-                    $this,
-                    new InvalidItemException(
-                        'Cannot create role: too many roles have a similar label.',
-                        new FileInvalidItem($readItem, $itemPosition),
-                    )
-                );
-                $this->updateProcessedItems();
+                $errorMessage = 'Cannot create role: too many roles have a similar label.';
             }
+        }
+
+        // ROLE_ANONYMOUS is a special role, we cannot override it
+        if (User::ROLE_ANONYMOUS === $role->getRole()) {
+            $errorMessage = 'Cannot update anonymous role.';
+        }
+
+        if ('' !== $errorMessage) {
+            $itemPosition = $this->stepExecution->getSummaryInfo('item_position');
+            $this->handleStepExecutionWarning(
+                $this->stepExecution,
+                $this,
+                new InvalidItemException($errorMessage, new FileInvalidItem($readItem, $itemPosition))
+            );
+            $this->updateProcessedItems();
+
+            return null;
         }
 
         return $role;
@@ -285,12 +296,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
         }
     }
 
-    /**
-     * Load the ACL per role
-     *
-     * @param RoleInterface $role
-     */
-    protected function updatePermissions(RoleInterface $role, array $privileges)
+    protected function updatePermissions(RoleInterface $role, array $privileges): void
     {
         if (User::ROLE_ANONYMOUS === $role->getRole()) {
             return;
