@@ -18,8 +18,7 @@ use Doctrine\Common\Persistence\ObjectRepository;
  */
 class InMemoryRoleRepository implements RoleRepositoryInterface, SaverInterface, ObjectRepository
 {
-    /** @var RoleInterface[] */
-    private $roles;
+    private ArrayCollection $roles;
 
     public function __construct()
     {
@@ -49,6 +48,20 @@ class InMemoryRoleRepository implements RoleRepositoryInterface, SaverInterface,
     public function findOneByIdentifier($identifier)
     {
         return $this->roles->get($identifier);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function findOneByLabel(string $label): ?RoleInterface
+    {
+        foreach ($this->roles as $role) {
+            if ($role->getLabel() === $label) {
+                return $role;
+            }
+        }
+
+        return null;
     }
 
     /**

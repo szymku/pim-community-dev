@@ -44,10 +44,24 @@ class InMemoryRoleRepositorySpec extends ObjectBehavior
         $this->save($role);
         $this->findOneByIdentifier('ROLE_ROLE')->shouldReturn($role);
     }
-
     function it_returns_null_if_the_role_does_not_exist()
     {
         $this->findOneByIdentifier('role')->shouldReturn(null);
+    }
+
+
+    function it_finds_a_role_by_its_label()
+    {
+        $role1 = new Role('role1');
+        $role1->setLabel('the label');
+        $this->save($role1);
+        $role2 = new Role('role2');
+        $role2->setLabel('the label of second role');
+        $this->save($role2);
+
+        $this->findOneByLabel('the label')->shouldReturn($role1);
+        $this->findOneByLabel('the label of second role')->shouldReturn($role2);
+        $this->findOneByLabel('unknown')->shouldReturn(null);
     }
 
     function it_has_identifier_properties()
