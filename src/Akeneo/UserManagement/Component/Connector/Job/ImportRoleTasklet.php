@@ -302,22 +302,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
             return;
         }
 
-        $indexedPermissionNames = [];
-        foreach ($privileges as $privilege) {
-            foreach ($privilege['permissions'] as $permission) {
-                if ($permission['access_level'] !== AccessLevel::NONE_LEVEL) {
-                    $name = $privilege['id'];
-                    if (false !== strpos($name, ':')) {
-                        $name = substr($name, 1 + strpos($name, ':'));
-                    }
-
-                    $indexedPermissionNames[$name] = 1;
-
-                    break;
-                }
-            }
-        }
-
+        $indexedPrivilegesNames = $this->buildIndexedPrivilegeNames($privileges);
         $sid = $this->aclManager->getSid($role);
 
         foreach ($this->aclManager->getAllExtensions() as $extension) {
@@ -334,7 +319,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
             }
 
             foreach ($extension->getClasses() as $aclClassInfo) {
-                $mask = array_key_exists($aclClassInfo->getClassName(), $indexedPermissionNames)
+                $mask = array_key_exists($aclClassInfo->getClassName(), $indexedPrivilegesNames)
                     ? AccessLevel::BASIC_LEVEL
                     : AccessLevel::NONE_LEVEL
                 ;
@@ -344,5 +329,26 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
         }
 
         $this->aclManager->flush();
+    }
+
+    private function buildIndexedPrivilegeNames(array $privileges): array
+    {
+        $indexedPrivilegesNames = [];
+        foreach ($privileges as $privilege) {
+            foreach ($privilege['permissions'] as $permission) {
+                if ($permission['access_level'] !== AccessLevel::NONE_LEVEL) {
+                    $name = $privilege['id'];
+                    if (false !== strpos($name, ':')) {
+                        $name = substr($name, 1 + strpos($name, ':'));
+                    }
+
+                    $indexedPrivilegesNames[$name] = 1;
+
+                    break;
+                }
+            }
+        }
+
+        return $indexedPrivilegesNames;
     }
 }
