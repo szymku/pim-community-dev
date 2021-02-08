@@ -11,14 +11,9 @@ use PhpSpec\ObjectBehavior;
 
 class RoleSpec extends ObjectBehavior
 {
-    function let(
-        FieldsRequirementChecker $fieldsRequirementChecker,
-        ActionAclExtension $actionAclProvider
-    ) {
-        $actionAclProvider->getDefaultPermission()->willReturn('EXECUTE');
-        $actionAclProvider->getExtensionKey()->willReturn('action');
-
-        $this->beConstructedWith($fieldsRequirementChecker, $actionAclProvider);
+    function let(FieldsRequirementChecker $fieldsRequirementChecker)
+    {
+        $this->beConstructedWith($fieldsRequirementChecker);
     }
 
     function it_is_an_array_converter()

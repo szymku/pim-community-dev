@@ -6,8 +6,6 @@ namespace Akeneo\UserManagement\Component\Connector\ArrayConverter\FlatToStandar
 use Akeneo\Tool\Component\Connector\ArrayConverter\ArrayConverterInterface;
 use Akeneo\Tool\Component\Connector\ArrayConverter\FieldsRequirementChecker;
 use Oro\Bundle\SecurityBundle\Acl\AccessLevel;
-use Oro\Bundle\SecurityBundle\Acl\Extension\ActionAclExtension;
-use Oro\Bundle\SecurityBundle\Metadata\AclAnnotationProvider;
 
 /**
  * @author    Nicolas Marniesse <nicolas.marniesse@akeneo.com>
@@ -16,17 +14,15 @@ use Oro\Bundle\SecurityBundle\Metadata\AclAnnotationProvider;
  */
 final class Role implements ArrayConverterInterface
 {
+    private const ACL_EXTENSION_KEY = 'action';
+    private const ACL_DEFAULT_PERMISSION = 'EXECUTE';
     private const FIELDS_PRESENCE = ['label'];
 
     private FieldsRequirementChecker $fieldsRequirementChecker;
-    private ActionAclExtension $actionAclProvider;
 
-    public function __construct(
-        FieldsRequirementChecker $fieldsRequirementChecker,
-        ActionAclExtension $actionAclProvider
-    ) {
+    public function __construct(FieldsRequirementChecker $fieldsRequirementChecker)
+    {
         $this->fieldsRequirementChecker = $fieldsRequirementChecker;
-        $this->actionAclProvider = $actionAclProvider;
     }
 
     /**
@@ -87,15 +83,14 @@ final class Role implements ArrayConverterInterface
     private function convertPermissions(string $data): array
     {
         $flatPermissionIds = explode(',', $data);
-        $defaultPermission = $this->actionAclProvider->getDefaultPermission();
 
         $standardPermissions = [];
         foreach ($flatPermissionIds as $flatPermissionId) {
             $standardPermissions[] = [
                 'id' => $flatPermissionId,
-                'type' => $this->actionAclProvider->getExtensionKey(),
-                'permissions' => [$defaultPermission => [
-                    'name' => $defaultPermission,
+                'type' => static::ACL_EXTENSION_KEY,
+                'permissions' => [static::ACL_DEFAULT_PERMISSION => [
+                    'name' => static::ACL_DEFAULT_PERMISSION,
                     'access_level' => AccessLevel::BASIC_LEVEL,
                 ]],
             ];
