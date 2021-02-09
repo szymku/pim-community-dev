@@ -2,6 +2,10 @@
   "name": "measurements",
   "version": "0.1.0",
   "private": true,
+  "peerDependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  },
   "dependencies": {
     "@akeneo-pim-community/legacy": "file:../legacy",
     "@akeneo-pim-community/shared": "file:../shared",
@@ -13,24 +17,25 @@
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.7",
+    "@types/styled-components": "^5.1.2",
+    "akeneo-design-system": "file:../akeneo-design-system",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
-    "typescript": "^4.0.3",
-    "web-vitals": "^0.2.4",
     "styled-components": "^5.1.1",
-    "@types/styled-components": "^5.1.2",
-    "akeneo-design-system": "file:../akeneo-design-system"
+    "typescript": "^4.0.3",
+    "web-vitals": "^0.2.4"
   },
   "proxy": "http://localhost:4000",
   "scripts": {
-    "pre-script": "cp ../public/js/translation/en_US.js ./src/translations.json && cp ../public/js/routes.js ./src/routes.json && sed -i 's/fos.Router.setData(//g' ./src/routes.json && sed -i 's/);//g' ./src/routes.json",
+    "pre-script": "cp ../public/js/translation/en_US.js ./src/translations.json && cp ../public/js/routes.js ./src/routes.json && sed -i '' 's/fos.Router.setData(//g' ./src/routes.json && sed -i '' 's/);//g' ./src/routes.json",
     "start": "yarn pre-script && react-scripts start",
     "build": "yarn pre-script && react-scripts build",
     "test": "yarn pre-script && react-scripts test",
     "eject": "yarn pre-script && react-scripts eject",
+    "backend": "node_modules/.bin/json-server ./json-server/db.json --routes ./json-server/routes.json --port 4000 --middlewares ./json-server/validate-unit-middleware.js",
     "lib:build": "tsc -p ./lib.tsconfig.json"
   },
   "eslintConfig": {
@@ -56,5 +61,8 @@
     "../legacy",
     "../shared",
     "../akeneo-design-system"
-  ]
+  ],
+  "devDependencies": {
+    "json-server": "^0.16.3"
+  }
 }

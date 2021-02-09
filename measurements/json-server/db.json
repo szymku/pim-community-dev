@@ -5051,6 +5051,30 @@
       ],
       "is_locked": false,
       "id": "d7OL2ZP"
+    },
+    {
+      "code": "test",
+      "labels": {
+        "uiLocale": ""
+      },
+      "standard_unit_code": "",
+      "units": [
+        {
+          "code": "",
+          "labels": {
+            "uiLocale": ""
+          },
+          "symbol": "",
+          "convert_from_standard": [
+            {
+              "operator": "mul",
+              "value": "1"
+            }
+          ]
+        }
+      ],
+      "is_locked": false,
+      "id": "1vadldy"
     }
   ],
   "locales": [

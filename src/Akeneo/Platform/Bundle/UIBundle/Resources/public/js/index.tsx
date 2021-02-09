@@ -4,7 +4,7 @@ import styled, {ThemeProvider} from 'styled-components';
 import {HashRouter as Router, Switch, Route, useLocation} from 'react-router-dom';
 import {dependencies, DependenciesProvider} from '@akeneo-pim-community/legacy-bridge';
 import {pimTheme} from 'akeneo-design-system';
-import {Index as Measurements} from '@akeneo-pim-community/raccoon';
+import {Index as Measurements} from '@akeneo-pim-community/measurement';
 import {TranslateProvider} from '@akeneo-pim-community/legacy';
 
 const fetcherRegistry = require('pim/fetcher-registry');
