@@ -62,7 +62,7 @@ type TextInputProps = Override<
     /**
      * Value of the input.
      */
-    value: string;
+    value?: string;
 
     /**
      * Placeholder displayed when the input is empty.
