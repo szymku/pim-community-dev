@@ -23,9 +23,9 @@ final class ImportUserRoleIntegration extends TestCase
     private const CSV_IMPORT_JOB_CODE = 'csv_user_role_import';
     private const XLSX_IMPORT_JOB_CODE = 'xlsx_user_role_import';
 
-    protected JobLauncher $jobLauncher;
-    protected RoleRepositoryInterface $roleRepository;
-    protected AclManager $aclManager;
+    private JobLauncher $jobLauncher;
+    private RoleRepositoryInterface $roleRepository;
+    private AclManager $aclManager;
 
     /**
      * {@inheritdoc}

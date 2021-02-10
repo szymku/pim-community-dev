@@ -23,7 +23,7 @@ use Akeneo\Tool\Component\StorageUtils\Detacher\ObjectDetacherInterface;
 use Akeneo\UserManagement\Component\Model\Role;
 use Akeneo\UserManagement\Component\Model\RoleInterface;
 use Akeneo\UserManagement\Component\Model\User;
-use Akeneo\UserManagement\Component\Repository\RoleRepositoryInterface;
+use Doctrine\Common\Persistence\ObjectRepository;
 use Oro\Bundle\SecurityBundle\Acl\AccessLevel;
 use Oro\Bundle\SecurityBundle\Acl\Persistence\AclManager;
 use Psr\Log\LoggerAwareInterface;
@@ -51,15 +51,15 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
 
     use LoggerAwareTrait;
 
-    protected ItemReaderInterface $reader;
-    protected ItemWriterInterface $writer;
+    private ItemReaderInterface $reader;
+    private ItemWriterInterface $writer;
     private bool $stoppable = false;
     private JobStopper $jobStopper;
-    private RoleRepositoryInterface $roleRepository;
+    private ObjectRepository $roleRepository;
     private ValidatorInterface $validator;
     private ObjectDetacherInterface $objectDetacher;
     private AclManager $aclManager;
-    protected ?StepExecution $stepExecution = null;
+    private ?StepExecution $stepExecution = null;
 
     public function __construct(
         string $name,
@@ -68,7 +68,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
         ItemReaderInterface $reader,
         ItemWriterInterface $writer,
         JobStopper $jobStopper,
-        RoleRepositoryInterface $roleRepository,
+        ObjectRepository $roleRepository,
         ValidatorInterface $validator,
         ObjectDetacherInterface $objectDetacher,
         AclManager $aclManager
@@ -142,7 +142,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
     {
         Assert::stringNotEmpty($readItem['label'] ?? null);
         $roleLabel = $readItem['label'];
-        $role = $this->roleRepository->findOneByLabel($roleLabel);
+        $role = $this->roleRepository->findOneBy(['label' => $roleLabel]);
         $errorMessage = '';
         if (null === $role) {
             $role = new Role();
@@ -152,7 +152,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
             while ($attempts < static::MAX_ATTEMPTS_TO_CREATE_A_ROLE) {
                 $role->setRole(0 === $attempts ? $roleLabel : ($roleLabel . $attempts));
                 $identifier = $role->getRole();
-                if (null === $this->roleRepository->findOneByIdentifier($identifier)
+                if (null === $this->roleRepository->findOneBy(['role' => $identifier])
                     && User::ROLE_ANONYMOUS !== $role->getRole()
                 ) {
                     break;
@@ -223,7 +223,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
     /**
      * Handle step execution warning
      */
-    protected function handleStepExecutionWarning(
+    private function handleStepExecutionWarning(
         StepExecution $stepExecution,
         $element,
         InvalidItemException $e
@@ -251,7 +251,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
         $this->jobRepository->updateStepExecution($this->stepExecution);
     }
 
-    protected function write(Role $role): void
+    private function write(Role $role): void
     {
         try {
             $this->writer->write([$role]);
@@ -263,7 +263,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
     /**
      * Get the configurable step elements
      */
-    protected function getStepElements(): array
+    private function getStepElements(): array
     {
         return [
             'reader' => $this->reader,
@@ -271,7 +271,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
         ];
     }
 
-    protected function initializeStepElements(StepExecution $stepExecution): void
+    private function initializeStepElements(StepExecution $stepExecution): void
     {
         $this->stepExecution = $stepExecution;
         foreach ($this->getStepElements() as $element) {
@@ -296,7 +296,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
         }
     }
 
-    protected function updatePermissions(RoleInterface $role, array $privileges): void
+    private function updatePermissions(RoleInterface $role, array $privileges): void
     {
         if (User::ROLE_ANONYMOUS === $role->getRole()) {
             return;

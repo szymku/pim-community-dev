@@ -53,20 +53,6 @@ class InMemoryRoleRepository implements RoleRepositoryInterface, SaverInterface,
     /**
      * {@inheritdoc}
      */
-    public function findOneByLabel(string $label): ?RoleInterface
-    {
-        foreach ($this->roles as $role) {
-            if ($role->getLabel() === $label) {
-                return $role;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function find($id)
     {
         throw new NotImplementedException();

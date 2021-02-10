@@ -3,7 +3,6 @@
 namespace Akeneo\UserManagement\Component\Repository;
 
 use Akeneo\Tool\Component\StorageUtils\Repository\IdentifiableObjectRepositoryInterface;
-use Akeneo\UserManagement\Component\Model\RoleInterface;
 
 /**
  * @author    Arnaud Langlade <arnaud.langlade@akeneo.com>
@@ -12,5 +11,4 @@ use Akeneo\UserManagement\Component\Model\RoleInterface;
  */
 interface RoleRepositoryInterface extends IdentifiableObjectRepositoryInterface
 {
-    public function findOneByLabel(string $label): ?RoleInterface;
 }

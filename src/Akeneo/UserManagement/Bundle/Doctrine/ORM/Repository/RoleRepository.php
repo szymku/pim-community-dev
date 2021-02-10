@@ -62,12 +62,4 @@ class RoleRepository extends EntityRepository implements RoleRepositoryInterface
             ->where('role = :role')
             ->setParameter('role', $role);
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function findOneByLabel(string $label): ?RoleInterface
-    {
-        return $this->findOneBy(['label' => $label]);
-    }
 }
