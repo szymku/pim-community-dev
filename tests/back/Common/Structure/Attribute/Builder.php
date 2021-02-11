@@ -35,6 +35,8 @@ class Builder
     /** @var string */
     private $backendType;
 
+    private string $description;
+
     public function __construct()
     {
         $this->code = Code::fromString('code');
@@ -43,6 +45,7 @@ class Builder
         $this->localizable = false;
         $this->scopable = false;
         $this->backendType = AttributeTypes::BACKEND_TYPE_TEXT;
+        $this->description = '';
     }
 
     /**
@@ -58,6 +61,7 @@ class Builder
         $attribute->setLocalizable($this->localizable);
         $attribute->setDecimalsAllowed(false);
         $attribute->setBackendType($this->backendType);
+        $attribute->setDescription($this->description);
 
         return $attribute;
     }
@@ -112,6 +116,7 @@ class Builder
         $this->scopable = false;
         $this->isUnique = true;
         $this->backendType = AttributeTypes::BACKEND_TYPE_TEXT;
+        $this->description = 'description';
 
         return $this;
     }

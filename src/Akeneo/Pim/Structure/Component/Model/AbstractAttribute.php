@@ -159,6 +159,8 @@ abstract class AbstractAttribute implements AttributeInterface
     /** @var ArrayCollection */
     protected $translations;
 
+    protected string $description = '';
+
     /**
      * Constructor
      */
@@ -1072,5 +1074,15 @@ abstract class AbstractAttribute implements AttributeInterface
             AttributeTypes::BACKEND_TYPE_REF_DATA_OPTION,
             AttributeTypes::BACKEND_TYPE_REF_DATA_OPTIONS
         ]);
+    }
+
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
     }
 }

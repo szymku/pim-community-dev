@@ -131,6 +131,9 @@ Akeneo\Pim\Structure\Component\Model\Attribute:
             type: datetime
         updated:
             type: datetime
+        description:
+            type: string
+            length: 255
     oneToMany:
         options:
             targetEntity: Akeneo\Pim\Structure\Component\Model\AttributeOptionInterface

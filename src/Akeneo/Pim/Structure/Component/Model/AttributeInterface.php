@@ -672,4 +672,8 @@ interface AttributeInterface extends
      * @return bool
      */
     public function isBackendTypeReferenceData();
+
+    public function getDescription(): string;
+
+    public function setDescription(string $description): void;
 }

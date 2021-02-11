@@ -39,6 +39,8 @@ final class Attribute
     /** @var string[] */
     private $availableLocaleCodes;
 
+    private string $description;
+
     public function __construct(
         string $attributeCode,
         string $attributeType,
@@ -49,7 +51,8 @@ final class Attribute
         ?string $defaultMetricUnit,
         ?bool $decimalsAllowed,
         string $backendType,
-        array $availableLocaleCodes
+        array $availableLocaleCodes,
+        string $description
     ) {
         $this->attributeCode = $attributeCode;
         $this->attributeType = $attributeType;
@@ -61,6 +64,7 @@ final class Attribute
         $this->decimalsAllowed = $decimalsAllowed;
         $this->backendType = $backendType;
         $this->availableLocaleCodes = $availableLocaleCodes;
+        $this->description = $description;
     }
 
     public function code(): string
@@ -121,5 +125,10 @@ final class Attribute
     public function availableLocaleCodes(): array
     {
         return $this->availableLocaleCodes;
+    }
+
+    public function description(): string
+    {
+        return $this->description;
     }
 }
