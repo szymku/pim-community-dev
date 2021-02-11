@@ -61,7 +61,8 @@ class ProductValueNormalizerSpec extends ObjectBehavior
             null,
             false,
             'text',
-            []
+            [],
+            ''
         );
 
         $getAttributes->forCode('attribute')->willReturn($attribute);
@@ -99,7 +100,8 @@ class ProductValueNormalizerSpec extends ObjectBehavior
             null,
             false,
             'text',
-            []
+            [],
+            ''
         );
 
         $getAttributes->forCode('attribute')->willReturn($attribute);
@@ -137,7 +139,8 @@ class ProductValueNormalizerSpec extends ObjectBehavior
             null,
             false,
             'text',
-            []
+            [],
+            ''
         );
 
         $getAttributes->forCode('attribute')->willReturn($attribute);
@@ -174,7 +177,8 @@ class ProductValueNormalizerSpec extends ObjectBehavior
             null,
             true,
             'integer',
-            []
+            [],
+            ''
         );
 
         $getAttributes->forCode('attribute')->willReturn($attribute);
@@ -211,7 +215,8 @@ class ProductValueNormalizerSpec extends ObjectBehavior
             null,
             true,
             'decimal',
-            []
+            [],
+            ''
         );
 
         $getAttributes->forCode('attribute_with_very_long_decimal')->shouldBeCalled()->willReturn($attribute);
@@ -248,7 +253,8 @@ class ProductValueNormalizerSpec extends ObjectBehavior
             null,
             false,
             'integer',
-            []
+            [],
+            ''
         );
 
         $getAttributes->forCode('attribute')->willReturn($attribute);
@@ -285,7 +291,8 @@ class ProductValueNormalizerSpec extends ObjectBehavior
             null,
             true,
             'decimal',
-            []
+            [],
+            ''
         );
 
         $getAttributes->forCode('attribute_with_decimal_allowed')->shouldBeCalled()->willReturn($attribute);
@@ -322,7 +329,8 @@ class ProductValueNormalizerSpec extends ObjectBehavior
             null,
             true,
             'decimal',
-            []
+            [],
+            ''
         );
 
         $getAttributes->forCode('attribute_with_decimal_allowed')->shouldBeCalled()->willReturn($attribute);
@@ -360,7 +368,8 @@ class ProductValueNormalizerSpec extends ObjectBehavior
             null,
             false,
             'option',
-            []
+            [],
+            ''
         );
 
         $getAttributes->forCode('attribute')->willReturn($attribute);
@@ -398,7 +407,8 @@ class ProductValueNormalizerSpec extends ObjectBehavior
             null,
             false,
             'options',
-            []
+            [],
+            ''
         );
 
         $getAttributes->forCode('attribute')->willReturn($attribute);

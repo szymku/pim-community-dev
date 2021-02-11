@@ -31,22 +31,23 @@ class EntityWithValuesBuilderSpec extends ObjectBehavior
                 null,
                 false,
                 'option',
-                []
+                [],
+                ''
             )
         );
         $getAttributesQuery->forCode('color')->willReturn(
             new Attribute(
-                'color', AttributeTypes::OPTION_SIMPLE_SELECT, [], true, true, null, null, false, 'option', []
+                'color', AttributeTypes::OPTION_SIMPLE_SELECT, [], true, true, null, null, false, 'option', [], ''
             )
         );
         $getAttributesQuery->forCode('label')->willReturn(
-            new Attribute('label', AttributeTypes::TEXT, [], true, true, null, null, false, 'option', [])
+            new Attribute('label', AttributeTypes::TEXT, [], true, true, null, null, false, 'option', [], '')
         );
         $getAttributesQuery->forCode('price')->willReturn(
-            new Attribute('price', AttributeTypes::PRICE_COLLECTION, [], false, false, null, null, false, 'prices', [])
+            new Attribute('price', AttributeTypes::PRICE_COLLECTION, [], false, false, null, null, false, 'prices', [], '')
         );
         $getAttributesQuery->forCode('weight')->willReturn(
-            new Attribute('weight', AttributeTypes::METRIC, [], false, false, null, 'KILOGRAM', false, 'metric', [])
+            new Attribute('weight', AttributeTypes::METRIC, [], false, false, null, 'KILOGRAM', false, 'metric', [], '')
         );
 
         $this->beConstructedWith($valuesResolver, $productValueFactory, $getAttributesQuery);
@@ -79,7 +80,8 @@ class EntityWithValuesBuilderSpec extends ObjectBehavior
             null,
             false,
             'option',
-            []
+            [],
+            ''
         );
         $colorAttribute = new Attribute(
             'color',
@@ -91,7 +93,8 @@ class EntityWithValuesBuilderSpec extends ObjectBehavior
             null,
             false,
             'option',
-            []
+            [],
+            ''
         );
         $productValueFactory->createByCheckingData($sizeAttribute, null, null, null)->willReturn($sizeValue);
         $productValueFactory->createByCheckingData($colorAttribute, 'ecommerce', 'en_US', null)->willReturn(
@@ -148,7 +151,8 @@ class EntityWithValuesBuilderSpec extends ObjectBehavior
             null,
             false,
             'option',
-            []
+            [],
+            ''
         );
         $colorAttribute = new Attribute(
             'color',
@@ -160,7 +164,8 @@ class EntityWithValuesBuilderSpec extends ObjectBehavior
             null,
             false,
             'option',
-            []
+            [],
+            ''
         );
 
         $productValueFactory->createByCheckingData($sizeAttribute, null, null, null)->willReturn($sizeValue);
@@ -187,7 +192,7 @@ class EntityWithValuesBuilderSpec extends ObjectBehavior
 
         $product->removeValue(Argument::any())->shouldNotBeCalled();
 
-        $labelAttribute = new Attribute('label', AttributeTypes::TEXT, [], true, true, null, null, false, 'option', []);
+        $labelAttribute = new Attribute('label', AttributeTypes::TEXT, [], true, true, null, null, false, 'option', [], '');
         $productValueFactory->createByCheckingData($labelAttribute, null, null, 'foobar')->willReturn($value);
 
         $product->addValue($value)->willReturn($product);
@@ -227,7 +232,7 @@ class EntityWithValuesBuilderSpec extends ObjectBehavior
             ],
         ];
         $productValueFactory->createByCheckingData(
-            new Attribute('price', AttributeTypes::PRICE_COLLECTION, [], false, false, null, null, false, 'prices', []),
+            new Attribute('price', AttributeTypes::PRICE_COLLECTION, [], false, false, null, null, false, 'prices', [], ''),
             null,
             null,
             Argument::that(function (array $value) {
@@ -259,7 +264,7 @@ class EntityWithValuesBuilderSpec extends ObjectBehavior
 
         $exception = new \InvalidArgumentException();
         $productValueFactory->createByCheckingData(
-            new Attribute('price', AttributeTypes::PRICE_COLLECTION, [], false, false, null, null, false, 'prices', []),
+            new Attribute('price', AttributeTypes::PRICE_COLLECTION, [], false, false, null, null, false, 'prices', [], ''),
             null,
             null,
             $priceData
@@ -299,7 +304,7 @@ class EntityWithValuesBuilderSpec extends ObjectBehavior
 
         $exception = new \InvalidArgumentException();
         $productValueFactory->createByCheckingData(
-            new Attribute('weight', AttributeTypes::METRIC, [], false, false, null, 'KILOGRAM', false, 'metric', []),
+            new Attribute('weight', AttributeTypes::METRIC, [], false, false, null, 'KILOGRAM', false, 'metric', [], ''),
             null,
             null,
             $data

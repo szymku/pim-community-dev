@@ -422,7 +422,8 @@ class AddDefaultValuesSubscriberSpec extends ObjectBehavior
             null,
             null,
             'bool',
-            $availableLocaleCodes
+            $availableLocaleCodes,
+            ''
         );
     }
 }

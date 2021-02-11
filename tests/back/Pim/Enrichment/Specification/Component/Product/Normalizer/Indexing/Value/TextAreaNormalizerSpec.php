@@ -45,7 +45,8 @@ class TextAreaNormalizerSpec extends ObjectBehavior
             null,
             true,
             'textarea',
-            []
+            [],
+            ''
         ));
         $getAttributes->forCode('my_number_attribute')->willReturn(new Attribute(
             'my_number_attribute',
@@ -57,7 +58,8 @@ class TextAreaNormalizerSpec extends ObjectBehavior
             null,
             true,
             'decimal',
-            []
+            [],
+            ''
         ));
 
         $this->supportsNormalization(new \stdClass(), 'whatever')->shouldReturn(false);
@@ -90,7 +92,8 @@ class TextAreaNormalizerSpec extends ObjectBehavior
             null,
             true,
             'textarea',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($textAreaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -121,7 +124,8 @@ class TextAreaNormalizerSpec extends ObjectBehavior
             null,
             true,
             'textarea',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($textAreaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -153,7 +157,8 @@ description\r\n");
             null,
             true,
             'textarea',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($textAreaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -184,7 +189,8 @@ description\r\n");
             null,
             true,
             'textarea',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($textAreaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -216,7 +222,8 @@ description\r\n");
             null,
             true,
             'textarea',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($textAreaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -247,7 +254,8 @@ description\r\n");
             null,
             true,
             'textarea',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($textAreaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -278,7 +286,8 @@ description\r\n");
             null,
             true,
             'textarea',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($textAreaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -309,7 +318,8 @@ description\r\n");
             null,
             true,
             'textarea',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($textAreaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -340,7 +350,8 @@ description\r\n");
             null,
             true,
             'textarea',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($textAreaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([

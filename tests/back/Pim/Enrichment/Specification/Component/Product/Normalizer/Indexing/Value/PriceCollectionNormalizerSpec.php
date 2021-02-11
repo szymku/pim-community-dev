@@ -48,7 +48,8 @@ class PriceCollectionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'prices',
-            []
+            [],
+            ''
         ));
         $getAttributes->forCode('my_text_attribute')->willReturn(new Attribute(
             'my_text_attribute',
@@ -60,7 +61,8 @@ class PriceCollectionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'text',
-            []
+            [],
+            ''
         ));
 
         $this->supportsNormalization(new \stdClass(), 'whatever')->shouldReturn(false);
@@ -97,7 +99,8 @@ class PriceCollectionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'prices',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($priceCollection, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -136,7 +139,8 @@ class PriceCollectionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'prices',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($priceCollection, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -178,7 +182,8 @@ class PriceCollectionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'prices',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($priceCollection, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -220,7 +225,8 @@ class PriceCollectionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'prices',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($priceCollection, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -262,7 +268,8 @@ class PriceCollectionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'prices',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($priceCollection, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -304,7 +311,8 @@ class PriceCollectionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'prices',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($priceCollection, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -346,7 +354,8 @@ class PriceCollectionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'prices',
-            []
+            [],
+            ''
         ));
 
         $this->normalize($priceCollection, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([

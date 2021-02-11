@@ -112,7 +112,8 @@ class AttributeClearerSpec extends ObjectBehavior
             null,
             true,
             '',
-            []
+            [],
+            ''
         );
     }
 }

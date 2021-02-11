@@ -45,7 +45,8 @@ class BooleanNormalizerSpec extends ObjectBehavior
             null,
             true,
             'boolean',
-            []
+            [],
+            ''
         ));
         $getAttributes->forCode('my_text_attribute')->willReturn(new Attribute(
             'my_text_attribute',
@@ -57,7 +58,8 @@ class BooleanNormalizerSpec extends ObjectBehavior
             null,
             true,
             'text',
-            []
+            [],
+            ''
         ));
 
         $this->supportsNormalization(new \stdClass(), 'whatever')->shouldReturn(false);
@@ -86,7 +88,8 @@ class BooleanNormalizerSpec extends ObjectBehavior
             null,
             true,
             'boolean',
-            []
+            [],
+            ''
         ));
 
         $value->getLocaleCode()->willReturn(null);
@@ -117,7 +120,8 @@ class BooleanNormalizerSpec extends ObjectBehavior
             null,
             true,
             'boolean',
-            []
+            [],
+            ''
         ));
 
         $value->getLocaleCode()->willReturn('fr_FR');
@@ -148,7 +152,8 @@ class BooleanNormalizerSpec extends ObjectBehavior
             null,
             true,
             'boolean',
-            []
+            [],
+            ''
         ));
 
         $value->getLocaleCode()->willReturn(null);
@@ -179,7 +184,8 @@ class BooleanNormalizerSpec extends ObjectBehavior
             null,
             true,
             'boolean',
-            []
+            [],
+            ''
         ));
 
         $value->getLocaleCode()->willReturn('fr_FR');
@@ -210,7 +216,8 @@ class BooleanNormalizerSpec extends ObjectBehavior
             null,
             true,
             'boolean',
-            []
+            [],
+            ''
         ));
 
         $value->getLocaleCode()->willReturn(null);

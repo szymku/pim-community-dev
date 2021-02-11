@@ -46,7 +46,8 @@ class OptionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'option',
-            []
+            [],
+            ''
         ));
         $getAttributes->forCode('my_text_attribute')->willReturn(new Attribute(
             'my_text_attribute',
@@ -58,7 +59,8 @@ class OptionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'text',
-            []
+            [],
+            ''
         ));
 
         $this->supportsNormalization(new \stdClass(), 'whatever')->shouldReturn(false);
@@ -88,7 +90,8 @@ class OptionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'option',
-            []
+            [],
+            ''
         ));
 
         $optionValue->getLocaleCode()->willReturn(null);
@@ -124,7 +127,8 @@ class OptionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'option',
-            []
+            [],
+            ''
         ));
 
         $optionValue->getData()->willReturn('red');
@@ -155,7 +159,8 @@ class OptionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'option',
-            []
+            [],
+            ''
         ));
 
         $optionValue->getLocaleCode()->willReturn('en_US');
@@ -192,7 +197,8 @@ class OptionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'option',
-            []
+            [],
+            ''
         ));
 
         $optionValue->getData()->willReturn('red');
@@ -223,7 +229,8 @@ class OptionNormalizerSpec extends ObjectBehavior
             null,
             true,
             'option',
-            []
+            [],
+            ''
         ));
 
         $optionValue->getLocaleCode()->willReturn('en_US');
