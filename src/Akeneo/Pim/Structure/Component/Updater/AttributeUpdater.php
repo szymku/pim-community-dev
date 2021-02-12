@@ -140,6 +140,7 @@ class AttributeUpdater implements ObjectUpdaterInterface
                 'localizable',
                 'scopable',
                 'required',
+                'description',
             ], $this->properties)
         )) {
             if (null !== $data && !is_scalar($data)) {

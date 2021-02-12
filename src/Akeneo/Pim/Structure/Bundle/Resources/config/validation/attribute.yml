@@ -453,6 +453,10 @@ Akeneo\Pim\Structure\Component\Model\Attribute:
                 exactMessage: This attribute cannot have available locales.
                 groups:
                     - pim_catalog_identifier
+        description:
+            - Type: string
+            - Length:
+                  max: 500
     getters:
         group:
             - Valid: ~

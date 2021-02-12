@@ -133,7 +133,7 @@ Akeneo\Pim\Structure\Component\Model\Attribute:
             type: datetime
         description:
             type: string
-            length: 255
+            length: 500
     oneToMany:
         options:
             targetEntity: Akeneo\Pim\Structure\Component\Model\AttributeOptionInterface

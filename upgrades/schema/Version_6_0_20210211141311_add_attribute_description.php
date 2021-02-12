@@ -12,7 +12,7 @@ final class Version_6_0_20210211141311_add_attribute_description extends Abstrac
 {
     public function up(Schema $schema) : void
     {
-        $this->addSql("ALTER TABLE pim_catalog_attribute ADD description VARCHAR(255) NOT NULL DEFAULT '';");
+        $this->addSql("ALTER TABLE pim_catalog_attribute ADD description VARCHAR(500) NOT NULL DEFAULT '';");
         $this->addSql("ALTER TABLE pim_catalog_attribute ALTER COLUMN description DROP DEFAULT;");
     }
 
