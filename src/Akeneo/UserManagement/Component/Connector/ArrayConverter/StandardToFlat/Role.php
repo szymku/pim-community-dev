@@ -13,7 +13,7 @@ use Akeneo\Tool\Component\Connector\ArrayConverter\FieldsRequirementChecker;
  */
 final class Role implements ArrayConverterInterface
 {
-    private const FIELDS_PRESENCE = ['label'];
+    private const FIELDS_PRESENCE = ['role', 'label'];
 
     private FieldsRequirementChecker $fieldsRequirementChecker;
 
@@ -27,6 +27,7 @@ final class Role implements ArrayConverterInterface
      *
      * Before:
      * [
+     *      'role' => 'ROLE_ADMINISTRATOR',
      *      'label' => 'Administrators',
      *      'permissions' => [
      *          [
@@ -58,6 +59,7 @@ final class Role implements ArrayConverterInterface
      *
      * After:
      * [
+     *      'role' => 'ROLE_ADMINISTRATOR',
      *      'label' => 'Administrators',
      *      'permissions' => 'action:pim_enrich_product_create,action:pim_enrich_product_index',
      * ]
