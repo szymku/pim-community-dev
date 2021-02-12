@@ -187,6 +187,9 @@ class AttributeUpdater implements ObjectUpdaterInterface
             case 'allowed_extensions':
                 $attribute->setAllowedExtensions(implode(',', $data));
                 break;
+            case 'description':
+                $attribute->setDescription($data ?? '');
+                break;
             default:
                 if (in_array($field, $this->properties)) {
                     $attribute->setProperty($field, $data);

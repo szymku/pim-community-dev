@@ -78,6 +78,7 @@ JSON;
             'localizable'            => false,
             'scopable'               => false,
             'labels'                 => [],
+            'description'            => '',
             'auto_option_sorting'    => null,
             'default_value'          => null,
         ];
@@ -123,7 +124,8 @@ JSON;
         "scopable":false,
         "labels":[],
         "auto_option_sorting":null,
-        "default_value":null
+        "default_value":null,
+        "description": "the description"
     }
 JSON;
 
@@ -158,6 +160,7 @@ JSON;
             'localizable'            => false,
             'scopable'               => false,
             'labels'                 => [],
+            'description'            => 'the description',
             'auto_option_sorting'    => null,
             'default_value'          => null,
         ];
@@ -217,6 +220,7 @@ JSON;
             'localizable'            => false,
             'scopable'               => false,
             'labels'                 => [],
+            'description'            => '',
             'auto_option_sorting'    => null,
             'default_value'          => null,
         ];
@@ -273,6 +277,7 @@ JSON;
             'localizable' => false,
             'scopable' => false,
             'labels' => [],
+            'description' => '',
             'auto_option_sorting' => null,
             'default_value' => false,
         ];
