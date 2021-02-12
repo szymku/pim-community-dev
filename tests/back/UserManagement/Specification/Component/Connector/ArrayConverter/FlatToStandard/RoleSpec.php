@@ -6,7 +6,6 @@ namespace Specification\Akeneo\UserManagement\Component\Connector\ArrayConverter
 use Akeneo\Tool\Component\Connector\ArrayConverter\ArrayConverterInterface;
 use Akeneo\Tool\Component\Connector\ArrayConverter\FieldsRequirementChecker;
 use Akeneo\UserManagement\Component\Connector\ArrayConverter\FlatToStandard\Role;
-use Oro\Bundle\SecurityBundle\Acl\Extension\ActionAclExtension;
 use PhpSpec\ObjectBehavior;
 
 class RoleSpec extends ObjectBehavior
@@ -25,17 +24,19 @@ class RoleSpec extends ObjectBehavior
     function it_converts_a_role_from_flat_to_standard_format(FieldsRequirementChecker $fieldsRequirementChecker)
     {
         $flat = [
+            'role' => 'ROLE_ADMINISTRATOR',
             'label' => 'Administrators',
             'permissions' => 'action:pim_enrich_product_create,action:pim_enrich_product_index',
         ];
 
-        $fieldsRequirementChecker->checkFieldsPresence($flat, ['label'])->shouldBeCalled();
-        $fieldsRequirementChecker->checkFieldsFilling($flat, ['label'])->shouldBeCalled();
+        $fieldsRequirementChecker->checkFieldsPresence($flat, ['role', 'label'])->shouldBeCalled();
+        $fieldsRequirementChecker->checkFieldsFilling($flat, ['role', 'label'])->shouldBeCalled();
 
         $standardFormat = $this->convert($flat);
         $standardFormat->shouldBeArray();
         $standardFormat->shouldHaveKey('label');
         $standardFormat->shouldHaveKey('permissions');
+        $standardFormat['role']->shouldBe('ROLE_ADMINISTRATOR');
         $standardFormat['label']->shouldBe('Administrators');
         $standardFormat['permissions']->shouldBeArray();
         $standardFormat['permissions']->shouldHaveCount(2);
@@ -53,15 +54,16 @@ class RoleSpec extends ObjectBehavior
 
     function it_can_convert_a_role_without_permission(FieldsRequirementChecker $fieldsRequirementChecker)
     {
-        $flat = ['label' => 'Administrators'];
+        $flat = ['role' => 'ROLE_ADMINISTRATOR', 'label' => 'Administrators'];
 
-        $fieldsRequirementChecker->checkFieldsPresence($flat, ['label'])->shouldBeCalled();
-        $fieldsRequirementChecker->checkFieldsFilling($flat, ['label'])->shouldBeCalled();
+        $fieldsRequirementChecker->checkFieldsPresence($flat, ['role', 'label'])->shouldBeCalled();
+        $fieldsRequirementChecker->checkFieldsFilling($flat, ['role', 'label'])->shouldBeCalled();
 
         $standardFormat = $this->convert($flat);
         $standardFormat->shouldBeArray();
         $standardFormat->shouldHaveKey('label');
         $standardFormat->shouldHaveKey('permissions');
+        $standardFormat['role']->shouldBe('ROLE_ADMINISTRATOR');
         $standardFormat['label']->shouldBe('Administrators');
         $standardFormat['permissions']->shouldBe([]);
     }

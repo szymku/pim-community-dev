@@ -16,7 +16,7 @@ final class Role implements ArrayConverterInterface
 {
     private const ACL_EXTENSION_KEY = 'action';
     private const ACL_DEFAULT_PERMISSION = 'EXECUTE';
-    private const FIELDS_PRESENCE = ['label'];
+    private const FIELDS_PRESENCE = ['role', 'label'];
 
     private FieldsRequirementChecker $fieldsRequirementChecker;
 
@@ -30,12 +30,14 @@ final class Role implements ArrayConverterInterface
      *
      * Before:
      * [
+     *      'role' => 'ROLE_ADMINISTRATOR',
      *      'label' => 'Administrators',
      *      'permissions' => 'action:pim_enrich_product_create,action:pim_enrich_product_index',
      * ]
      *
      * After:
      * [
+     *      'role' => 'ROLE_ADMINISTRATOR',
      *      'label' => 'Administrators',
      *      'permissions' => [
      *          [

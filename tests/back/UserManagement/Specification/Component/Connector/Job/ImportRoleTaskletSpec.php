@@ -15,7 +15,7 @@ use Akeneo\Tool\Component\Batch\Step\StepInterface;
 use Akeneo\Tool\Component\StorageUtils\Detacher\ObjectDetacherInterface;
 use Akeneo\UserManagement\Component\Connector\Job\ImportRoleTasklet;
 use Akeneo\UserManagement\Component\Model\Role;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Akeneo\UserManagement\Component\Repository\RoleRepositoryInterface;
 use Oro\Bundle\SecurityBundle\Acl\Extension\AclExtensionInterface;
 use Oro\Bundle\SecurityBundle\Acl\Persistence\AclManager;
 use Oro\Bundle\SecurityBundle\Metadata\ActionMetadata;
@@ -36,7 +36,7 @@ class ImportRoleTaskletSpec extends ObjectBehavior
         ItemReaderInterface $reader,
         ItemWriterInterface $writer,
         JobStopper $jobStopper,
-        ObjectRepository $roleRepository,
+        RoleRepositoryInterface $roleRepository,
         ValidatorInterface $validator,
         ObjectDetacherInterface $objectDetacher,
         AclManager $aclManager,
@@ -79,7 +79,7 @@ class ImportRoleTaskletSpec extends ObjectBehavior
         BatchStatus $status,
         ExitStatus $exitStatus,
         JobStopper $jobStopper,
-        ObjectRepository $roleRepository,
+        RoleRepositoryInterface $roleRepository,
         ValidatorInterface $validator,
         AclManager $aclManager,
         ObjectDetacherInterface $objectDetacher
@@ -93,6 +93,7 @@ class ImportRoleTaskletSpec extends ObjectBehavior
 
         $reader->read()->willReturn(
             [
+                'role' => 'ROLE_ADMIN',
                 'label' => 'Admin',
                 'permissions' => [
                     [
@@ -116,6 +117,7 @@ class ImportRoleTaskletSpec extends ObjectBehavior
                 ],
             ],
             [
+                'role' => 'ROLE_USER',
                 'label' => 'User',
                 'permissions' => [
                     [
@@ -137,15 +139,14 @@ class ImportRoleTaskletSpec extends ObjectBehavior
 
         $adminRole = new Role('ROLE_ADMIN');
         $adminRole->setLabel('Admin');
-        $roleRepository->findOneBy(['label' => 'Admin'])->willReturn($adminRole);
+        $roleRepository->findOneByIdentifier('ROLE_ADMIN')->willReturn($adminRole);
         $validator->validate($adminRole)->willReturn(new ConstraintViolationList([]));
         $writer->write([$adminRole])->shouldBeCalled();
         $objectDetacher->detach($adminRole)->shouldBeCalled();
 
+        $roleRepository->findOneByIdentifier('ROLE_USER')->willReturn(null);
         $userRole = new Role('ROLE_USER');
         $userRole->setLabel('User');
-        $roleRepository->findOneBy(['label' => 'User'])->willReturn(null);
-        $roleRepository->findOneBy(['role' => 'ROLE_USER'])->willReturn(null);
         $validator->validate($userRole)->willReturn(new ConstraintViolationList([]));
         $writer->write([$userRole])->shouldBeCalled();
         $objectDetacher->detach($userRole)->shouldBeCalled();
@@ -179,7 +180,7 @@ class ImportRoleTaskletSpec extends ObjectBehavior
         BatchStatus $status,
         ExitStatus $exitStatus,
         JobStopper $jobStopper,
-        ObjectRepository $roleRepository,
+        RoleRepositoryInterface $roleRepository,
         ValidatorInterface $validator,
         ObjectDetacherInterface $objectDetacher
     ) {
@@ -191,13 +192,13 @@ class ImportRoleTaskletSpec extends ObjectBehavior
         $execution->setStatus(Argument::any())->shouldBeCalled();
 
         $reader->read()->willReturn(
-            ['label' => 'Admin', 'permissions' => []],
+            ['role' => 'ROLE_ADMIN', 'label' => 'Admin', 'permissions' => []],
             null
         );
 
         $adminRole = new Role('ROLE_ADMIN');
         $adminRole->setLabel('Admin');
-        $roleRepository->findOneBy(['label' => 'Admin'])->willReturn($adminRole);
+        $roleRepository->findOneByIdentifier('ROLE_ADMIN')->willReturn($adminRole);
         $validator->validate($adminRole)->willReturn(new ConstraintViolationList([
             new ConstraintViolation('error_message', null, [], null, null, null)
         ]));

@@ -23,7 +23,7 @@ use Akeneo\Tool\Component\StorageUtils\Detacher\ObjectDetacherInterface;
 use Akeneo\UserManagement\Component\Model\Role;
 use Akeneo\UserManagement\Component\Model\RoleInterface;
 use Akeneo\UserManagement\Component\Model\User;
-use Doctrine\Common\Persistence\ObjectRepository;
+use Akeneo\UserManagement\Component\Repository\RoleRepositoryInterface;
 use Oro\Bundle\SecurityBundle\Acl\AccessLevel;
 use Oro\Bundle\SecurityBundle\Acl\Persistence\AclManager;
 use Psr\Log\LoggerAwareInterface;
@@ -55,7 +55,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
     private ItemWriterInterface $writer;
     private bool $stoppable = false;
     private JobStopper $jobStopper;
-    private ObjectRepository $roleRepository;
+    private RoleRepositoryInterface $roleRepository;
     private ValidatorInterface $validator;
     private ObjectDetacherInterface $objectDetacher;
     private AclManager $aclManager;
@@ -68,7 +68,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
         ItemReaderInterface $reader,
         ItemWriterInterface $writer,
         JobStopper $jobStopper,
-        ObjectRepository $roleRepository,
+        RoleRepositoryInterface $roleRepository,
         ValidatorInterface $validator,
         ObjectDetacherInterface $objectDetacher,
         AclManager $aclManager
@@ -119,10 +119,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
             }
 
             $role = $this->fetchOrCreate($readItem);
-            if (null === $role) {
-                continue;
-            }
-
+            $role->setLabel($readItem['label']);
             if ($this->validate($role, $readItem)) {
                 $this->write($role);
                 $this->updatePermissions($role, $readItem['permissions']);
@@ -138,49 +135,12 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
         }
     }
 
-    private function fetchOrCreate(array $readItem): ?Role
+    private function fetchOrCreate(array $readItem): Role
     {
-        Assert::stringNotEmpty($readItem['label'] ?? null);
-        $roleLabel = $readItem['label'];
-        $role = $this->roleRepository->findOneBy(['label' => $roleLabel]);
-        $errorMessage = '';
+        $stringRole = $readItem['role'];
+        $role = $this->roleRepository->findOneByIdentifier($stringRole);
         if (null === $role) {
-            $role = new Role();
-            $role->setLabel($roleLabel);
-
-            $attempts = 0;
-            while ($attempts < static::MAX_ATTEMPTS_TO_CREATE_A_ROLE) {
-                $role->setRole(0 === $attempts ? $roleLabel : ($roleLabel . $attempts));
-                $identifier = $role->getRole();
-                if (null === $this->roleRepository->findOneBy(['role' => $identifier])
-                    && User::ROLE_ANONYMOUS !== $role->getRole()
-                ) {
-                    break;
-                }
-
-                $attempts++;
-            }
-
-            if ($attempts === static::MAX_ATTEMPTS_TO_CREATE_A_ROLE) {
-                $errorMessage = 'Cannot create role: too many roles have a similar label.';
-            }
-        }
-
-        // ROLE_ANONYMOUS is a special role, we cannot override it
-        if (User::ROLE_ANONYMOUS === $role->getRole()) {
-            $errorMessage = 'Cannot update anonymous role.';
-        }
-
-        if ('' !== $errorMessage) {
-            $itemPosition = $this->stepExecution->getSummaryInfo('item_position');
-            $this->handleStepExecutionWarning(
-                $this->stepExecution,
-                $this,
-                new InvalidItemException($errorMessage, new FileInvalidItem($readItem, $itemPosition))
-            );
-            $this->updateProcessedItems();
-
-            return null;
+            $role = new Role($stringRole);
         }
 
         return $role;

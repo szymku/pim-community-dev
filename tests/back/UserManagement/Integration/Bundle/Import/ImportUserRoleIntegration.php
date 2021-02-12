@@ -60,12 +60,18 @@ final class ImportUserRoleIntegration extends TestCase
     public function it_imports_user_roles_in_csv(): void
     {
         $csvContent = <<<CSV
-label;permissions
-Administrator;action:pim_enrich_product_create,action:pim_enrich_product_edit_attributes,action:pim_enrich_product_history,action:pim_enrich_product_index
-User;action:pim_enrich_product_index
-"No permission role";
+role;label;permissions
+ROLE_ADMINISTRATOR;Administrator;action:pim_enrich_product_create,action:pim_enrich_product_edit_attributes,action:pim_enrich_product_history,action:pim_enrich_product_index
+ROLE_USER;"New user label";action:pim_enrich_product_index
+ROLE_NEW;"No permission role";
 
 CSV;
+        $userRole = $this->roleRepository->findOneByIdentifier('ROLE_USER');
+        self::assertNotNull($userRole);
+        $userLabelBeforeImport = $userRole->getLabel();
+        self::assertNull($this->roleRepository->findOneByIdentifier('ROLE_NEW'));
+        $this->get('doctrine.orm.default_entity_manager')->clear();
+
         $this->jobLauncher->launchImport(static::CSV_IMPORT_JOB_CODE, $csvContent);
         $adminRole = $this->roleRepository->findOneByIdentifier('ROLE_ADMINISTRATOR');
         self::assertNotNull($adminRole);
@@ -76,12 +82,13 @@ CSV;
 
         $userRole = $this->roleRepository->findOneByIdentifier('ROLE_USER');
         self::assertNotNull($userRole);
+        self::assertNotSame($userLabelBeforeImport, $userRole->getLabel());
         $this->assertRoleHasNotPermission($userRole, 'action:pim_enrich_product_create');
         $this->assertRoleHasNotPermission($userRole, 'action:pim_enrich_product_edit_attributes');
         $this->assertRoleHasNotPermission($userRole, 'action:pim_enrich_product_history');
         $this->assertRoleHasPermission($userRole, 'action:pim_enrich_product_index');
 
-        $noPermissionRole = $this->roleRepository->findOneByIdentifier('ROLE_NOPERMISSIONROLE');
+        $noPermissionRole = $this->roleRepository->findOneByIdentifier('ROLE_NEW');
         self::assertNotNull($noPermissionRole);
         self::assertSame('No permission role', $noPermissionRole->getLabel());
         $this->assertRoleHasNotPermission($noPermissionRole, 'action:pim_enrich_product_create');
@@ -97,12 +104,18 @@ CSV;
         $writer = WriterFactory::create('xlsx');
         $writer->openToFile($temporaryFile);
         $writer->addRows([
-            ['label', 'permissions'],
-            ['Administrator', 'action:pim_enrich_product_create,action:pim_enrich_product_edit_attributes,action:pim_enrich_product_history,action:pim_enrich_product_index'],
-            ['User', 'action:pim_enrich_product_index'],
-            ['No permission role', ''],
+            ['role', 'label', 'permissions'],
+            ['ROLE_ADMINISTRATOR', 'Administrator', 'action:pim_enrich_product_create,action:pim_enrich_product_edit_attributes,action:pim_enrich_product_history,action:pim_enrich_product_index'],
+            ['ROLE_USER', 'New user label', 'action:pim_enrich_product_index'],
+            ['ROLE_NEW', 'No permission role', ''],
         ]);
         $writer->close();
+
+        $userRole = $this->roleRepository->findOneByIdentifier('ROLE_USER');
+        self::assertNotNull($userRole);
+        $userLabelBeforeImport = $userRole->getLabel();
+        self::assertNull($this->roleRepository->findOneByIdentifier('ROLE_NEW'));
+        $this->get('doctrine.orm.default_entity_manager')->clear();
 
         $this->jobLauncher->launchImport(static::XLSX_IMPORT_JOB_CODE, file_get_contents($temporaryFile), null, [], [], 'xlsx');
         $adminRole = $this->roleRepository->findOneByIdentifier('ROLE_ADMINISTRATOR');
@@ -114,18 +127,58 @@ CSV;
 
         $userRole = $this->roleRepository->findOneByIdentifier('ROLE_USER');
         self::assertNotNull($userRole);
+        self::assertNotSame($userLabelBeforeImport, $userRole->getLabel());
         $this->assertRoleHasNotPermission($userRole, 'action:pim_enrich_product_create');
         $this->assertRoleHasNotPermission($userRole, 'action:pim_enrich_product_edit_attributes');
         $this->assertRoleHasNotPermission($userRole, 'action:pim_enrich_product_history');
         $this->assertRoleHasPermission($userRole, 'action:pim_enrich_product_index');
 
-        $noPermissionRole = $this->roleRepository->findOneByIdentifier('ROLE_NOPERMISSIONROLE');
+        $noPermissionRole = $this->roleRepository->findOneByIdentifier('ROLE_NEW');
         self::assertNotNull($noPermissionRole);
         self::assertSame('No permission role', $noPermissionRole->getLabel());
         $this->assertRoleHasNotPermission($noPermissionRole, 'action:pim_enrich_product_create');
         $this->assertRoleHasNotPermission($noPermissionRole, 'action:pim_enrich_product_edit_attributes');
         $this->assertRoleHasNotPermission($noPermissionRole, 'action:pim_enrich_product_history');
         $this->assertRoleHasNotPermission($noPermissionRole, 'action:pim_enrich_product_index');
+    }
+
+    /** @test */
+    public function it_fails_when_role_contains_lower_case(): void
+    {
+        $csvContent = <<<CSV
+role;label;permissions
+ROLE_NEWa;"No permission role";
+
+CSV;
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Export failed, "role: The role should begin with "ROLE_" and contains only underscores and alphanumeric characters in uppercase.: ROLE_NEWa');
+        $this->jobLauncher->launchImport(static::CSV_IMPORT_JOB_CODE, $csvContent);
+    }
+
+    /** @test */
+    public function it_fails_when_role_contains_space(): void
+    {
+        $csvContent = <<<CSV
+role;label;permissions
+ROLE_NEW WITH_SPACE;"No permission role";
+
+CSV;
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Export failed, "role: The role should begin with "ROLE_" and contains only underscores and alphanumeric characters in uppercase.: ROLE_NEW WITH_SPACE');
+        $this->jobLauncher->launchImport(static::CSV_IMPORT_JOB_CODE, $csvContent);
+    }
+
+    /** @test */
+    public function it_fails_when_role_contains_invalid_character(): void
+    {
+        $csvContent = <<<CSV
+role;label;permissions
+ROLE_NEW_(WITH_BRACKET;"No permission role";
+
+CSV;
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Export failed, "role: The role should begin with "ROLE_" and contains only underscores and alphanumeric characters in uppercase.: ROLE_NEW_(WITH_BRACKET');
+        $this->jobLauncher->launchImport(static::CSV_IMPORT_JOB_CODE, $csvContent);
     }
 
     private function assertRoleHasPermission(Role $role, string $permission): void
