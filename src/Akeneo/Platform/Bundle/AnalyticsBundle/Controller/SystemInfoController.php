@@ -4,6 +4,7 @@ namespace Akeneo\Platform\Bundle\AnalyticsBundle\Controller;
 
 use Akeneo\Tool\Component\Analytics\ChainedDataCollector;
 use Oro\Bundle\SecurityBundle\Annotation\AclAncestor;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Twig\Environment;
@@ -46,6 +47,8 @@ class SystemInfoController
         $data = $this->dataCollector->collect('system_info_report');
         $data = $moveToEnd($data, 'php_extensions');
         $data = $moveToEnd($data, 'registered_bundles');
+
+        return new JsonResponse($data);
 
         $content = $this->templating->render(
             sprintf('PimAnalyticsBundle:SystemInfo:index.%s.twig', $_format),

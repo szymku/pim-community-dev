@@ -1,0 +1,10 @@
+extensions:
+    akeneo-analytics-system-info-index:
+        module: pim/common/simple-view
+        config:
+            template: pim/template/common/default-template
+
+    akeneo-analytics-system-info-content:
+        module: pim-analytics-system-info-index
+        parent: akeneo-analytics-system-info-index
+        targetZone: content
