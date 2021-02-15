@@ -134,6 +134,8 @@ Akeneo\Pim\Structure\Component\Model\Attribute:
         description:
             type: string
             length: 500
+            options:
+                default: ""
     oneToMany:
         options:
             targetEntity: Akeneo\Pim\Structure\Component\Model\AttributeOptionInterface
