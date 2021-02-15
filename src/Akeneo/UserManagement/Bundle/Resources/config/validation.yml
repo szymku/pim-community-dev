@@ -65,7 +65,7 @@ Akeneo\UserManagement\Component\Model\Role:
     properties:
         role:
             - Regex:
-                  pattern: '/^ROLE_[0-9A-Z_]*$/'
+                  pattern: '/^(IS_AUTHENTICATED_ANONYMOUSLY|ROLE_[0-9A-Z_]*)$/'
                   message: pim_user.role.invalid_role_format
         label:
             - NotBlank:     ~
