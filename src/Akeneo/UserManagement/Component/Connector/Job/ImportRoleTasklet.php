@@ -47,7 +47,6 @@ use Webmozart\Assert\Assert;
 final class ImportRoleTasklet extends AbstractStep implements TrackableStepInterface, LoggerAwareInterface, StoppableStepInterface
 {
     private const ACL_EXTENSION_KEY = 'action';
-    private const MAX_ATTEMPTS_TO_CREATE_A_ROLE = 100;
 
     use LoggerAwareTrait;
 
@@ -165,9 +164,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
 
     private function getCountFromTrackableItemReader(): int
     {
-        if (!$this->reader instanceof TrackableItemReaderInterface) {
-            throw new \RuntimeException('The reader should implement TrackableItemReaderInterface');
-        }
+        Assert::implementsInterface($this->reader, TrackableItemReaderInterface::class);
 
         try {
             return $this->reader->totalItems();
