@@ -258,6 +258,8 @@ class FixturesContext extends BaseFixturesContext
         foreach ($table->getHash() as $data) {
             $this->createProduct($data);
         }
+
+        $this->purgeMessengerEvents();
     }
 
     /**
@@ -2632,5 +2634,16 @@ class FixturesContext extends BaseFixturesContext
     protected function getElasticsearchUserClient()
     {
         return $this->getContainer()->get('akeneo_elasticsearch.client.user');
+    }
+
+    private function purgeMessengerEvents()
+    {
+        $transport = $this->getContainer()->get('messenger.transport.business_event');
+
+        while (!empty($envelopes = $transport->get())) {
+            foreach ($envelopes as $envelope) {
+                $transport->ack($envelope);
+            }
+        }
     }
 }
