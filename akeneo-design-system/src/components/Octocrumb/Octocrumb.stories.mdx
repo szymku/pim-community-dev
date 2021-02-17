@@ -1,5 +1,5 @@
 import {Meta, Story, ArgsTable, Canvas} from '@storybook/addon-docs/blocks';
-import {Octocrumb, Separator, Step} from './Octocrumb.tsx';
+import {Octocrumb} from './Octocrumb.tsx';
 
 <Meta
   title="Components/Octocrumb"
@@ -7,53 +7,23 @@ import {Octocrumb, Separator, Step} from './Octocrumb.tsx';
 />
 
 # Octocrumb
-
-This is the brand new breadcrumb
+Octocrumbs are an important navigation component that shows content hierarchy. They allow users to be aware of their current location in the hierarchical structure of the application. Breadcrumbs enable users to quickly move up to a parent level.
 
 ## Usage
-
-This is a collection of links components with separators
-
-### TODO
-
-TODO
+Octocrumbs are very effective for products and experience with a large amount of content organized in a multi-level hierarchy. Breadcrumbs should be considered secondary navigation and should never completely replace the main navigation. The last level is always the current page, this one is not clickable.
 
 ## Playground
 
 <Canvas>
   <Story name="Standard">
     {args => {
-      return <Octocrumb>
-        <Step gradient={120} color={args.color}>First</Step>
-        <Separator/>
-        <Step gradient={120} color={args.color}>Second</Step>
-        <Separator/>
-        <Step gradient={100} color={args.color}>Last</Step>
+      return <Octocrumb color={args.color}>
+        <Octocrumb.Step>First</Octocrumb.Step>
+        <Octocrumb.Step>Second</Octocrumb.Step>
+        <Octocrumb.Step>Last</Octocrumb.Step>
       </Octocrumb>;
     }}
   </Story>
 </Canvas>
 
 <ArgsTable story="Standard" />
-
-## Variation on level
-
-<Canvas>
-  <Story name="Level">
-    {args => {
-      return (
-        <>
-          <Octocrumb {...args} level="primary">
-            Primary
-          </Octocrumb>
-          <Octocrumb {...args} level="warning">
-            Warning
-          </Octocrumb>
-          <Octocrumb {...args} level="danger">
-            Danger
-          </Octocrumb>
-        </>
-      );
-    }}
-  </Story>
-</Canvas>
