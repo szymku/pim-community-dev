@@ -69,7 +69,7 @@ class AttributeNormalizerSpec extends ObjectBehavior
         $attribute->getMinimumInputLength()->willReturn(null);
         $attribute->getSortOrder()->willReturn(0);
         $attribute->getProperty('auto_option_sorting')->willReturn(null);
-        $attribute->getDescription()->willReturn('the description');
+        $attribute->getDescriptions()->willReturn(['en_US' => 'the description', 'fr_FR' => 'la description']);
 
         $this->normalize($attribute)->shouldReturn(
             [
@@ -99,7 +99,7 @@ class AttributeNormalizerSpec extends ObjectBehavior
                 'localizable'            => false,
                 'scopable'               => false,
                 'labels'                 => [],
-                'description'            => 'the description',
+                'descriptions'           => ['en_US' => 'the description', 'fr_FR' => 'la description'],
                 'auto_option_sorting'    => null,
             ]
         );
@@ -144,7 +144,7 @@ class AttributeNormalizerSpec extends ObjectBehavior
         $attribute->getMinimumInputLength()->willReturn(2);
         $attribute->getSortOrder()->willReturn(4);
         $attribute->getProperty('auto_option_sorting')->willReturn(true);
-        $attribute->getDescription()->willReturn('the description');
+        $attribute->getDescriptions()->willReturn(['en_US' => 'the description']);
 
         $dateTimeNormalizer->normalize($dateMin)->willReturn('2015-05-23T15:55:50+01:00');
         $dateTimeNormalizer->normalize($dateMax)->willReturn('2015-06-23T15:55:50+01:00');
@@ -177,7 +177,7 @@ class AttributeNormalizerSpec extends ObjectBehavior
                 'localizable'            => true,
                 'scopable'               => true,
                 'labels'                 => [],
-                'description'            => 'the description',
+                'descriptions'           => ['en_US' => 'the description'],
                 'auto_option_sorting'    => true,
             ]
         );

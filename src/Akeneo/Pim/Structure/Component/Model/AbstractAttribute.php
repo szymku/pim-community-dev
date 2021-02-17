@@ -159,7 +159,8 @@ abstract class AbstractAttribute implements AttributeInterface
     /** @var ArrayCollection */
     protected $translations;
 
-    protected string $description = '';
+    /** @var string[] */
+    protected array $descriptions = [];
 
     /**
      * Constructor
@@ -1076,13 +1077,24 @@ abstract class AbstractAttribute implements AttributeInterface
         ]);
     }
 
-    public function getDescription(): string
+    public function getDescriptions(): array
     {
-        return $this->description;
+        return $this->descriptions;
     }
 
-    public function setDescription(string $description): void
+    public function addDescription(string $locale, string $description): void
     {
-        $this->description = $description;
+        $this->descriptions[$locale] = $description;
+    }
+
+
+    public function removeDescription(string $locale): void
+    {
+        unset($this->descriptions[$locale]);
+    }
+
+    public function getDescriptionLocales(): array
+    {
+        return array_keys($this->descriptions);
     }
 }

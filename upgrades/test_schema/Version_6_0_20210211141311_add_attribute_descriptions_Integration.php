@@ -8,11 +8,11 @@ use Akeneo\Test\Integration\TestCase;
 use Doctrine\DBAL\Schema\AbstractSchemaManager;
 use PHPUnit\Framework\Assert;
 
-final class Version_6_0_20210211141311_add_attribute_description_Integration extends TestCase
+final class Version_6_0_20210211141311_add_attribute_descriptions_Integration extends TestCase
 {
     use ExecuteMigrationTrait;
 
-    private const MIGRATION_LABEL = '_6_0_20210211141311_add_attribute_description';
+    private const MIGRATION_LABEL = '_6_0_20210211141311_add_attribute_descriptions';
 
     protected function getConfiguration(): Configuration
     {
@@ -27,11 +27,11 @@ final class Version_6_0_20210211141311_add_attribute_description_Integration ext
     public function test_it_updates_the_attribute_table(): void
     {
         $connection = $this->get('database_connection');
-        $connection->executeQuery('ALTER TABLE pim_catalog_attribute DROP description;');
+        $connection->executeQuery('ALTER TABLE pim_catalog_attribute DROP descriptions;');
 
         $this->reExecuteMigration(self::MIGRATION_LABEL);
 
-        $this->assertTableHasColumns('pim_catalog_attribute', ['description' => 'string']);
+        $this->assertTableHasColumns('pim_catalog_attribute', ['descriptions' => 'string']);
     }
 
     private function assertTableHasColumns(string $tableName, array $expectedColumnsAndTypes): void

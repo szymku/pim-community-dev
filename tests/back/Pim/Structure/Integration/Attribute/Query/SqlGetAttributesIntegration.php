@@ -28,7 +28,7 @@ final class SqlGetAttributesIntegration extends TestCase
                 'localizable' => false,
                 'scopable' => false,
                 'group' => 'other',
-                'description' => 'description of boolean',
+                'descriptions' => ['en_US' => 'description of boolean', 'fr_FR' => 'description du boolean'],
             ],
             [
                 'code' => 'a_textarea',
@@ -36,7 +36,7 @@ final class SqlGetAttributesIntegration extends TestCase
                 'localizable' => false,
                 'scopable' => false,
                 'group' => 'other',
-                'description' => 'description of textarea',
+                'descriptions' => ['en_US' => 'description of textarea', 'fr_FR' => ''],
             ],
             [
                 'code' => 'a_text',
@@ -44,7 +44,7 @@ final class SqlGetAttributesIntegration extends TestCase
                 'localizable' => false,
                 'scopable' => false,
                 'group' => 'other',
-                'description' => 'description of text',
+                'descriptions' => ['en_US' => 'description of text'],
             ],
             [
                 'code' => '123',
@@ -60,7 +60,7 @@ final class SqlGetAttributesIntegration extends TestCase
                 'scopable' => false,
                 'group' => 'other',
                 'available_locales' => ['en_US'],
-                'description' => 'description of locale_specific_attribute',
+                'descriptions' => ['en_US' => 'description of locale_specific_attribute'],
             ],
             [
                 'code' => 'a_metric',
@@ -72,7 +72,7 @@ final class SqlGetAttributesIntegration extends TestCase
                 'default_metric_unit' => 'CENTIMETER',
                 'decimals_allowed' => true,
                 'negative_allowed' => false,
-                'description' => 'description of metric',
+                'descriptions' => ['en_US' => 'description of metric'],
             ]
         ]);
     }
@@ -96,13 +96,13 @@ final class SqlGetAttributesIntegration extends TestCase
     public function getExpected(): array
     {
         return [
-            'a_text' => new Attribute('a_text', AttributeTypes::TEXT, [], false, false, null, null, false, 'text', [], 'description of text'),
-            'a_textarea' => new Attribute('a_textarea', AttributeTypes::TEXTAREA, [], false, false, null, null, false, 'textarea', [], 'description of textarea'),
-            'a_boolean' => new Attribute('a_boolean', AttributeTypes::BOOLEAN, [], false, false, null, null, false, 'boolean', [], 'description of boolean'),
+            'a_text' => new Attribute('a_text', AttributeTypes::TEXT, [], false, false, null, null, false, 'text', [], ['en_US' => 'description of text']),
+            'a_textarea' => new Attribute('a_textarea', AttributeTypes::TEXTAREA, [], false, false, null, null, false, 'textarea', [], ['en_US' => 'description of textarea']),
+            'a_boolean' => new Attribute('a_boolean', AttributeTypes::BOOLEAN, [], false, false, null, null, false, 'boolean', [], ['en_US' => 'description of boolean', 'fr_FR' => 'description du boolean']),
             'unknown_attribute_code' => null,
-            '123' => new Attribute('123', AttributeTypes::TEXT, [], false, false, null, null, false, 'text', [], ''),
-            'a_locale_specific_attribute' => new Attribute('a_locale_specific_attribute', AttributeTypes::BOOLEAN, [], true, false, null, null, false, 'boolean', ['en_US'], 'description of locale_specific_attribute'),
-            'a_metric' => new Attribute('a_metric', AttributeTypes::METRIC, [], false, false, 'Length', 'CENTIMETER', true, 'metric', [], 'description of metric'),
+            '123' => new Attribute('123', AttributeTypes::TEXT, [], false, false, null, null, false, 'text', [], []),
+            'a_locale_specific_attribute' => new Attribute('a_locale_specific_attribute', AttributeTypes::BOOLEAN, [], true, false, null, null, false, 'boolean', ['en_US'], ['en_US' => 'description of locale_specific_attribute']),
+            'a_metric' => new Attribute('a_metric', AttributeTypes::METRIC, [], false, false, 'Length', 'CENTIMETER', true, 'metric', [], ['en_US' => 'description of metric']),
         ];
     }
 

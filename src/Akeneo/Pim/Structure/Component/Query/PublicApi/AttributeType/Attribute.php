@@ -3,6 +3,8 @@ declare(strict_types=1);
 
 namespace Akeneo\Pim\Structure\Component\Query\PublicApi\AttributeType;
 
+use Webmozart\Assert\Assert;
+
 /**
  * @author    Anael Chardan <anael.chardan@akeneo.com>
  * @copyright 2019 Akeneo SAS (http://www.akeneo.com)
@@ -39,7 +41,8 @@ final class Attribute
     /** @var string[] */
     private $availableLocaleCodes;
 
-    private string $description;
+    /** @var string[] */
+    private array $descriptions;
 
     public function __construct(
         string $attributeCode,
@@ -52,8 +55,10 @@ final class Attribute
         ?bool $decimalsAllowed,
         string $backendType,
         array $availableLocaleCodes,
-        string $description
+        array $descriptions
     ) {
+        Assert::allString($descriptions);
+        Assert::allString(array_keys($descriptions));
         $this->attributeCode = $attributeCode;
         $this->attributeType = $attributeType;
         $this->attributeProperties = $attributeProperties;
@@ -64,7 +69,7 @@ final class Attribute
         $this->decimalsAllowed = $decimalsAllowed;
         $this->backendType = $backendType;
         $this->availableLocaleCodes = $availableLocaleCodes;
-        $this->description = $description;
+        $this->descriptions = $descriptions;
     }
 
     public function code(): string
@@ -127,8 +132,8 @@ final class Attribute
         return $this->availableLocaleCodes;
     }
 
-    public function description(): string
+    public function descriptions(): array
     {
-        return $this->description;
+        return $this->descriptions;
     }
 }

@@ -102,6 +102,6 @@ final class FileValueFactorySpec extends ObjectBehavior
 
     private function getAttribute(bool $isLocalizable, bool $isScopable): Attribute
     {
-        return new Attribute('an_attribute', AttributeTypes::FILE, [], $isLocalizable, $isScopable, null, null, false, 'file', [], '');
+        return new Attribute('an_attribute', AttributeTypes::FILE, [], $isLocalizable, $isScopable, null, null, false, 'file', [], []);
     }
 }

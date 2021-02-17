@@ -85,7 +85,7 @@ class AttributeNormalizer implements NormalizerInterface, CacheableSupportsMetho
             'localizable'            => (bool) $attribute->isLocalizable(),
             'scopable'               => (bool) $attribute->isScopable(),
             'labels'                 => $this->translationNormalizer->normalize($attribute, $format, $context),
-            'description' => $attribute->getDescription(),
+            'descriptions' => $attribute->getDescriptions(),
         ];
 
         return $normalizedAttribute + $normalizedProperties;

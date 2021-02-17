@@ -98,7 +98,7 @@ class AttributeUpdater implements ObjectUpdaterInterface
      */
     protected function validateDataType($field, $data)
     {
-        if (in_array($field, ['labels', 'available_locales', 'allowed_extensions'])) {
+        if (in_array($field, ['labels', 'available_locales', 'allowed_extensions', 'descriptions'])) {
             if (!is_array($data)) {
                 throw InvalidPropertyTypeException::arrayExpected($field, static::class, $data);
             }
@@ -140,7 +140,6 @@ class AttributeUpdater implements ObjectUpdaterInterface
                 'localizable',
                 'scopable',
                 'required',
-                'description',
             ], $this->properties)
         )) {
             if (null !== $data && !is_scalar($data)) {
@@ -187,8 +186,14 @@ class AttributeUpdater implements ObjectUpdaterInterface
             case 'allowed_extensions':
                 $attribute->setAllowedExtensions(implode(',', $data));
                 break;
-            case 'description':
-                $attribute->setDescription($data ?? '');
+            case 'descriptions':
+                foreach ($data as $localeCode => $description) {
+                    if (empty($description)) {
+                        $attribute->removeDescription($localeCode);
+                    } else {
+                        $attribute->addDescription($localeCode, $description);
+                    }
+                }
                 break;
             default:
                 if (in_array($field, $this->properties)) {

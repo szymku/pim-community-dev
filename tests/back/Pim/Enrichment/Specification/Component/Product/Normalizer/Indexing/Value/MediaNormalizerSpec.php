@@ -74,7 +74,7 @@ class MediaNormalizerSpec extends ObjectBehavior
             true,
             'media',
             [],
-            ''
+            []
         ));
 
         $this->normalize($mediaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -123,7 +123,7 @@ class MediaNormalizerSpec extends ObjectBehavior
             true,
             'media',
             [],
-            ''
+            []
         ));
 
         $this->normalize($mediaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -172,7 +172,7 @@ class MediaNormalizerSpec extends ObjectBehavior
             true,
             'media',
             [],
-            ''
+            []
         ));
 
         $this->normalize($mediaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -221,7 +221,7 @@ class MediaNormalizerSpec extends ObjectBehavior
             true,
             'media',
             [],
-            ''
+            []
         ));
 
         $this->normalize($mediaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -261,7 +261,7 @@ class MediaNormalizerSpec extends ObjectBehavior
             true,
             'media',
             [],
-            ''
+            []
         ));
 
         $this->normalize($mediaValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([

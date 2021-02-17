@@ -46,7 +46,7 @@ class TextNormalizerSpec extends ObjectBehavior
             true,
             'text',
             [],
-            ''
+            []
         ));
         $getAttributes->forCode('my_number_attribute')->willReturn(new Attribute(
             'my_number_attribute',
@@ -59,7 +59,7 @@ class TextNormalizerSpec extends ObjectBehavior
             true,
             'decimal',
             [],
-            ''
+            []
         ));
 
         $this->supportsNormalization(new \stdClass(), 'whatever')->shouldReturn(false);
@@ -94,7 +94,7 @@ class TextNormalizerSpec extends ObjectBehavior
             true,
             'text',
             [],
-            ''
+            []
         ));
 
         $this->normalize($textValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -126,7 +126,7 @@ class TextNormalizerSpec extends ObjectBehavior
             true,
             'text',
             [],
-            ''
+            []
         ));
 
         $this->normalize($textValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -158,7 +158,7 @@ class TextNormalizerSpec extends ObjectBehavior
             true,
             'text',
             [],
-            ''
+            []
         ));
 
         $this->normalize($textValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -190,7 +190,7 @@ class TextNormalizerSpec extends ObjectBehavior
             true,
             'text',
             [],
-            ''
+            []
         ));
 
         $this->normalize($textValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -222,7 +222,7 @@ class TextNormalizerSpec extends ObjectBehavior
             true,
             'text',
             [],
-            ''
+            []
         ));
 
         $this->normalize($textValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([
@@ -254,7 +254,7 @@ class TextNormalizerSpec extends ObjectBehavior
             true,
             'text',
             [],
-            ''
+            []
         ));
 
         $this->normalize($textValue, ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)->shouldReturn([

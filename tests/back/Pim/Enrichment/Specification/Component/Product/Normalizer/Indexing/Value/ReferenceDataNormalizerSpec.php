@@ -47,7 +47,7 @@ class ReferenceDataNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_option',
             [],
-            ''
+            []
         ));
         $getAttributes->forCode('my_text_attribute')->willReturn(new Attribute(
             'my_text_attribute',
@@ -60,7 +60,7 @@ class ReferenceDataNormalizerSpec extends ObjectBehavior
             true,
             'text',
             [],
-            ''
+            []
         ));
 
         $this->supportsNormalization(new \stdClass(), ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)
@@ -90,7 +90,7 @@ class ReferenceDataNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_option',
             [],
-            ''
+            []
         ));
 
         $referenceDataValue->getLocaleCode()->willReturn(null);
@@ -125,7 +125,7 @@ class ReferenceDataNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_option',
             [],
-            ''
+            []
         ));
 
         $referenceDataValue->getLocaleCode()->willReturn(null);
@@ -160,7 +160,7 @@ class ReferenceDataNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_option',
             [],
-            ''
+            []
         ));
 
         $referenceDataValue->getLocaleCode()->willReturn('en_US');
@@ -195,7 +195,7 @@ class ReferenceDataNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_option',
             [],
-            ''
+            []
         ));
 
         $referenceDataValue->getLocaleCode()->willReturn(null);
@@ -230,7 +230,7 @@ class ReferenceDataNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_option',
             [],
-            ''
+            []
         ));
 
         $referenceDataValue->getLocaleCode()->willReturn('en_US');

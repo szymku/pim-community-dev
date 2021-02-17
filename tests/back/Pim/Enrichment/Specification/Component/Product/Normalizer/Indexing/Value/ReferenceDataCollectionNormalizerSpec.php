@@ -47,7 +47,7 @@ class ReferenceDataCollectionNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_options',
             [],
-            ''
+            []
         ));
         $getAttributes->forCode('my_text_attribute')->willReturn(new Attribute(
             'my_text_attribute',
@@ -60,7 +60,7 @@ class ReferenceDataCollectionNormalizerSpec extends ObjectBehavior
             true,
             'text',
             [],
-            ''
+            []
         ));
 
         $this->supportsNormalization(new \stdClass(), ValueCollectionNormalizer::INDEXING_FORMAT_PRODUCT_AND_MODEL_INDEX)
@@ -93,7 +93,7 @@ class ReferenceDataCollectionNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_options',
             [],
-            ''
+            []
         ));
 
         $referenceDataCollectionProductValue->getLocaleCode()->willReturn(null);
@@ -129,7 +129,7 @@ class ReferenceDataCollectionNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_options',
             [],
-            ''
+            []
         ));
 
         $referenceDataCollectionProductValue->getLocaleCode()->willReturn(null);
@@ -168,7 +168,7 @@ class ReferenceDataCollectionNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_options',
             [],
-            ''
+            []
         ));
 
         $referenceDataCollectionProductValue->getLocaleCode()->willReturn('en_US');
@@ -207,7 +207,7 @@ class ReferenceDataCollectionNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_options',
             [],
-            ''
+            []
         ));
 
         $referenceDataCollectionProductValue->getLocaleCode()->willReturn(null);
@@ -246,7 +246,7 @@ class ReferenceDataCollectionNormalizerSpec extends ObjectBehavior
             true,
             'reference_data_options',
             [],
-            ''
+            []
         ));
 
         $referenceDataCollectionProductValue->getLocaleCode()->willReturn('en_US');

@@ -59,7 +59,8 @@ class AttributeSpec extends ObjectBehavior
             'reference_data_name'    => 'color',
             'localizable'            => '0',
             'scopable'               => '0',
-            'description'            => 'the description',
+            'description-en_US'      => 'the description',
+            'description-fr_FR'      => 'la description',
         ];
 
         $result = [
@@ -79,7 +80,10 @@ class AttributeSpec extends ObjectBehavior
             'reference_data_name'    => 'color',
             'localizable'            => false,
             'scopable'               => false,
-            'description'            => 'the description',
+            'descriptions'           => [
+                'en_US' => 'the description',
+                'fr_FR' => 'la description',
+            ],
         ];
 
         $this->convert($item)->shouldReturn($result);

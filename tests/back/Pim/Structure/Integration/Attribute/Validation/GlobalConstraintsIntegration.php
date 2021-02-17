@@ -520,14 +520,39 @@ class GlobalConstraintsIntegration extends AbstractAttributeTestCase
                 'code'  => 'new_text',
                 'type'  => 'pim_catalog_text',
                 'group' => 'attributeGroupA',
-                'description' => str_repeat('a', 501),
+                'descriptions' => [
+                    'en_US' => 'valid description',
+                    'fr_FR' => str_repeat('a', 501),
+                ],
             ]
         );
-
         $violations = $this->validateAttribute($attribute);
 
         $this->assertCount(1, $violations);
         $this->assertSame('This value is too long. It should have 500 characters or less.', $violations->get(0)->getMessage());
-        $this->assertSame('description', $violations->get(0)->getPropertyPath());
+        $this->assertSame('descriptions[fr_FR]', $violations->get(0)->getPropertyPath());
+    }
+
+    public function testDescriptionUnknownLocale()
+    {
+        $attribute = $this->createAttribute();
+
+        $this->updateAttribute(
+            $attribute,
+            [
+                'code'  => 'new_text',
+                'type'  => 'pim_catalog_text',
+                'group' => 'attributeGroupA',
+                'descriptions' => [
+                    'en_US' => 'valid description',
+                    'unknown' => 'valid description',
+                ],
+            ]
+        );
+        $violations = $this->validateAttribute($attribute);
+
+        $this->assertCount(1, $violations);
+        $this->assertSame('The locale "unknown" does not exist.', $violations->get(0)->getMessage());
+        $this->assertSame('descriptions', $violations->get(0)->getPropertyPath());
     }
 }

@@ -46,7 +46,7 @@ class InMemoryGetAttributesSpec extends ObjectBehavior
                 false,
                 AttributeTypes::BACKEND_TYPE_TEXT,
                 [],
-                'description'
+                ['en_US' => 'description']
             ),
             'sku_2' => new Attribute(
                 'sku_2',
@@ -59,7 +59,7 @@ class InMemoryGetAttributesSpec extends ObjectBehavior
                 false,
                 AttributeTypes::BACKEND_TYPE_TEXT,
                 [],
-                'description'
+                ['en_US' => 'description']
             ),
         ]);
     }
@@ -78,7 +78,7 @@ class InMemoryGetAttributesSpec extends ObjectBehavior
                 false,
                 AttributeTypes::BACKEND_TYPE_TEXT,
                 [],
-                'description'
+                ['en_US' => 'description']
             ),
             'SKU_2' => new Attribute(
                 'sku_2',
@@ -91,7 +91,7 @@ class InMemoryGetAttributesSpec extends ObjectBehavior
                 false,
                 AttributeTypes::BACKEND_TYPE_TEXT,
                 [],
-                'description'
+                ['en_US' => 'description']
             ),
         ]);
     }

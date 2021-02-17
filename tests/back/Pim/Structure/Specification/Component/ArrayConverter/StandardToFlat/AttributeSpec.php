@@ -47,7 +47,8 @@ class AttributeSpec extends ObjectBehavior
             'wysiwyg_enabled'        => '0',
             'decimals_allowed'       => '1',
             'negative_allowed'       => '1',
-            'description'            => 'the description',
+            'description-en_US'      => 'the description',
+            'description-fr_FR'      => 'la description',
         ];
 
         $item = [
@@ -79,7 +80,10 @@ class AttributeSpec extends ObjectBehavior
             'wysiwyg_enabled'        => false,
             'decimals_allowed'       => true,
             'negative_allowed'       => true,
-            'description'            => 'the description',
+            'descriptions'           => [
+                'en_US' => 'the description',
+                'fr_FR' => 'la description',
+            ],
         ];
 
         $this->convert($item)->shouldReturn($expected);

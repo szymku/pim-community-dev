@@ -112,7 +112,7 @@ class RemoveNonExistingProductValuesTaskletSpec extends ObjectBehavior
             null,
             'option',
             [],
-            ''
+            []
         );
     }
 }
