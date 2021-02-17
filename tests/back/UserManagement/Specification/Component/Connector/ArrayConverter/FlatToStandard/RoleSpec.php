@@ -41,11 +41,13 @@ class RoleSpec extends ObjectBehavior
         $standardFormat['permissions']->shouldBeArray();
         $standardFormat['permissions']->shouldHaveCount(2);
         $standardFormat['permissions'][0]['id']->shouldBe('action:pim_enrich_product_create');
+        $standardFormat['permissions'][0]['name']->shouldBe('pim_enrich_product_create');
         $standardFormat['permissions'][0]['type']->shouldBe('action');
         $standardFormat['permissions'][0]['permissions']->shouldBe([
            'EXECUTE' => ['name' => 'EXECUTE', 'access_level' => 1],
         ]);
         $standardFormat['permissions'][1]['id']->shouldBe('action:pim_enrich_product_index');
+        $standardFormat['permissions'][1]['name']->shouldBe('pim_enrich_product_index');
         $standardFormat['permissions'][1]['type']->shouldBe('action');
         $standardFormat['permissions'][1]['permissions']->shouldBe([
            'EXECUTE' => ['name' => 'EXECUTE', 'access_level' => 1],

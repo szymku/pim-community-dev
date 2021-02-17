@@ -98,18 +98,21 @@ class ImportRoleTaskletSpec extends ObjectBehavior
                 'permissions' => [
                     [
                         'id' => 'action:list_product',
+                        'name' => 'list_product',
                         'permissions' => [
                             'EXECUTE' => ['name' => 'EXECUTE', 'access_level' => 1],
                         ],
                     ],
                     [
                         'id' => 'action:create_product',
+                        'name' => 'create_product',
                         'permissions' => [
                             'EXECUTE' => ['name' => 'EXECUTE', 'access_level' => 1],
                         ],
                     ],
                     [
                         'id' => 'action:unknown',
+                        'name' => 'unknown',
                         'permissions' => [
                             'EXECUTE' => ['name' => 'EXECUTE', 'access_level' => 1],
                         ],
@@ -122,12 +125,14 @@ class ImportRoleTaskletSpec extends ObjectBehavior
                 'permissions' => [
                     [
                         'id' => 'action:list_product',
+                        'name' => 'list_product',
                         'permissions' => [
                             'EXECUTE' => ['name' => 'EXECUTE', 'access_level' => 1],
                         ],
                     ],
                     [
                         'id' => 'action:create_product',
+                        'name' => 'create_product',
                         'permissions' => [
                             'EXECUTE' => ['name' => 'EXECUTE', 'access_level' => 0],
                         ],

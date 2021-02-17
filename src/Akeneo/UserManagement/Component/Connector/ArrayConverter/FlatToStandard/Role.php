@@ -42,6 +42,7 @@ final class Role implements ArrayConverterInterface
      *      'permissions' => [
      *          [
      *              'id' => 'action:pim_enrich_product_create',
+     *              'name' => 'pim_enrich_product_create',
      *              'type' => 'action',
      *              'permissions' => [
      *                  'EXECUTE' => [
@@ -52,6 +53,7 @@ final class Role implements ArrayConverterInterface
      *          ],
      *          [
      *              'id' => 'action:pim_enrich_product_index',
+     *              'name' => 'pim_enrich_product_index',
      *              'type' => 'action',
      *              'permissions' => [
      *                  'EXECUTE' => [
@@ -90,6 +92,9 @@ final class Role implements ArrayConverterInterface
         foreach ($flatPermissionIds as $flatPermissionId) {
             $standardPermissions[] = [
                 'id' => $flatPermissionId,
+                'name' => false !== strpos($flatPermissionId, ':')
+                    ? substr($flatPermissionId, strpos($flatPermissionId, ':') + 1)
+                    : $flatPermissionId,
                 'type' => static::ACL_EXTENSION_KEY,
                 'permissions' => [static::ACL_DEFAULT_PERMISSION => [
                     'name' => static::ACL_DEFAULT_PERMISSION,

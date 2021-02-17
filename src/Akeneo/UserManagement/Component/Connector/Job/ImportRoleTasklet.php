@@ -294,12 +294,7 @@ final class ImportRoleTasklet extends AbstractStep implements TrackableStepInter
         foreach ($privileges as $privilege) {
             foreach ($privilege['permissions'] as $permission) {
                 if ($permission['access_level'] !== AccessLevel::NONE_LEVEL) {
-                    $name = $privilege['id'];
-                    if (false !== strpos($name, ':')) {
-                        $name = substr($name, 1 + strpos($name, ':'));
-                    }
-
-                    $indexedPrivilegesNames[$name] = 1;
+                    $indexedPrivilegesNames[$privilege['name']] = 1;
 
                     break;
                 }
