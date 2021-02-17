@@ -1,0 +1,59 @@
+import {Meta, Story, ArgsTable, Canvas} from '@storybook/addon-docs/blocks';
+import {Octocrumb, Separator, Step} from './Octocrumb.tsx';
+
+<Meta
+  title="Components/Octocrumb"
+  component={Octocrumb}
+/>
+
+# Octocrumb
+
+This is the brand new breadcrumb
+
+## Usage
+
+This is a collection of links components with separators
+
+### TODO
+
+TODO
+
+## Playground
+
+<Canvas>
+  <Story name="Standard">
+    {args => {
+      return <Octocrumb>
+        <Step gradient={120} color={args.color}>First</Step>
+        <Separator/>
+        <Step gradient={120} color={args.color}>Second</Step>
+        <Separator/>
+        <Step gradient={100} color={args.color}>Last</Step>
+      </Octocrumb>;
+    }}
+  </Story>
+</Canvas>
+
+<ArgsTable story="Standard" />
+
+## Variation on level
+
+<Canvas>
+  <Story name="Level">
+    {args => {
+      return (
+        <>
+          <Octocrumb {...args} level="primary">
+            Primary
+          </Octocrumb>
+          <Octocrumb {...args} level="warning">
+            Warning
+          </Octocrumb>
+          <Octocrumb {...args} level="danger">
+            Danger
+          </Octocrumb>
+        </>
+      );
+    }}
+  </Story>
+</Canvas>
