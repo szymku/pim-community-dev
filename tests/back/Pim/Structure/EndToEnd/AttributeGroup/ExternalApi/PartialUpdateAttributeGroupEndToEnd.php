@@ -332,7 +332,7 @@ JSON;
     "localizable": false,
     "scopable": false,
     "labels": {},
-    "description": "",
+    "descriptions": {},
     "auto_option_sorting": null,
     "default_value": null
 }

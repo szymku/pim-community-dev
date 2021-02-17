@@ -510,10 +510,9 @@ class GlobalConstraintsIntegration extends AbstractAttributeTestCase
         $this->assertSame('maxCharacters', $violations->get(0)->getPropertyPath());
     }
 
-    public function testDescriptionMaxLength()
+    public function testDescriptionMaxLength(): void
     {
         $attribute = $this->createAttribute();
-
         $this->updateAttribute(
             $attribute,
             [
@@ -533,10 +532,9 @@ class GlobalConstraintsIntegration extends AbstractAttributeTestCase
         $this->assertSame('descriptions[fr_FR]', $violations->get(0)->getPropertyPath());
     }
 
-    public function testDescriptionUnknownLocale()
+    public function testDescriptionUnknownLocale(): void
     {
         $attribute = $this->createAttribute();
-
         $this->updateAttribute(
             $attribute,
             [

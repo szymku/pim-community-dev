@@ -50,7 +50,7 @@ class GetAttributeEndToEnd extends ApiTestCase
     "labels": {},
     "auto_option_sorting": null,
     "default_value": null,
-    "description": "this is the sku"
+    "descriptions": {"en_US": "this is the sku"}
 }
 JSON;
 
