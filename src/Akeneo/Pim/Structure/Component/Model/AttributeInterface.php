@@ -116,9 +116,9 @@ interface AttributeInterface extends
     /**
      * Get available locale codes
      *
-     * @return array
      * @deprecated Will be removed in 1.8. Please use getAvailableLocaleCodes() instead.
      *
+     * @return array
      */
     public function getLocaleSpecificCodes();
 
@@ -386,9 +386,9 @@ interface AttributeInterface extends
      *
      * @param string $type
      *
-     * @return AttributeInterface
      * @see Pim\Component\Catalog\AttributeTypes
      *
+     * @return AttributeInterface
      */
     public function setType($type);
 
@@ -438,9 +438,9 @@ interface AttributeInterface extends
     /**
      * Get attribute type
      *
-     * @return string
      * @see Pim\Component\Catalog\AttributeTypes
      *
+     * @return string
      */
     public function getType();
 
@@ -486,9 +486,9 @@ interface AttributeInterface extends
      *
      * @param array $parameters
      *
-     * @return AttributeInterface
      * @throws \Exception
      *
+     * @return AttributeInterface
      */
     public function setParameters($parameters);
 
