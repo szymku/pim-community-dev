@@ -1,11 +1,12 @@
 import React from 'react';
 import {ReactController} from '@akeneo-pim-community/legacy-bridge/src/bridge/react';
+import {SystemInfoApp} from "./SystemInfoApp";
 
 const mediator = require('oro/mediator');
 
 class SystemInfoController extends ReactController {
   reactElementToMount() {
-    return <div>test</div>;
+    return <SystemInfoApp />;
   }
 
   routeGuardToUnmount() {
